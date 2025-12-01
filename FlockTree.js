@@ -21,8 +21,7 @@ function setup() {
 }
 
 function draw() {
-  // clear(); //empty background
-   background(255);
+  clear(); //empty background
   
   //Tree
   TreeX = width/2;

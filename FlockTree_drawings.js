@@ -36,7 +36,6 @@ function setup() {
 function draw() {
     resetMatrix();
     translate(-width / 2, -height / 2);
-    clear(); //empty background
      
     
   // Update and draw all ripples
