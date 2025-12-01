@@ -7,7 +7,7 @@ let imgTree;
 let padding = 100;
 
 function preload(){ //has to be preloaded :(
-  imgTree = loadImage('Assets/FlockTree.JPG');
+  imgTree = loadImage('Assets/FinalPortrait.JPG');
 }
 
 function setup() {

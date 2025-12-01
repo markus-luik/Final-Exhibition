@@ -61,7 +61,7 @@ function imagePositioner(){
 
 function preload(){ //has to be preloaded :(
   img = loadImage('Assets/Bedroom.JPG');
-  right = loadImage('Assets/Elephant.JPG');
+  right = loadImage('Assets/Elephant.jpg');
   left = loadImage('Assets/Fish.JPG');
 }
 

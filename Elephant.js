@@ -29,9 +29,9 @@ let left;
     let leftOpacity = defaultOpacity;
 
 function preload(){ //has to be preloaded :(
-  img = loadImage('Assets/Elephant.JPG');
+  img = loadImage('Assets/Elephant.jpg');
   left = loadImage('Assets/Bedroom.JPG');
-  right = loadImage('Assets/TeaTime.JPG');
+  right = loadImage('Assets/TeaTime.jpg');
 }
 
 function setup() { 

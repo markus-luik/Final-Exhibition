@@ -34,7 +34,7 @@ let left;
 
 function preload(){ //has to be preloaded :(
   img = loadImage('Assets/Fish.JPG');
-  left = loadImage('Assets/TeaTime.JPG');
+  left = loadImage('Assets/TeaTime.jpg');
   right = loadImage('Assets/Bedroom.JPG');
 }
 
