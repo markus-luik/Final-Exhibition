@@ -10,17 +10,36 @@ function preload(){ //has to be preloaded :(
   imgTree = loadImage('Assets/FlockTree.JPG');
 }
 
+function fitToWindow(imgWidth, imgHeight, padding = 0) {
+  // available space after padding
+  let availW = windowWidth - padding * 2;
+  let availH = windowHeight - padding * 2;
+
+  // scale based only on the limiting dimension
+  let scale = min(availW / imgWidth, availH / imgHeight);
+
+  return {
+    w: imgWidth * scale,
+    h: imgHeight * scale,
+    x: windowWidth / 2,
+    y: windowHeight / 2
+  };
+}
+
 function setup() {
-  createCanvas(700, 800);
-  resizeCanvas(windowWidth, windowHeight);
+  createCanvas(windowWidth, windowHeight, WEBGL);
   
   imageMode(CENTER);
-   let Scale = min(windowWidth/imgTree.width, windowHeight/ imgTree.height);
-  TreeWidth = imgTree.width * Scale - padding;
-  TreeHeight =  imgTree.height * Scale - padding;
+  let s = fitToWindow(imgTree.width, imgTree.height, padding);
+  TreeWidth = round(s.w);
+  TreeHeight = round(s.h);
+  TreeX = round(s.x);
+  TreeY = round(s.y);
 }
 
 function draw() {
+  resetMatrix();
+  translate(-width / 2, -height / 2);
   // clear(); //empty background
    background(255);
   
@@ -39,9 +58,11 @@ function draw() {
 
 function windowResized() { //window resizer
   resizeCanvas(windowWidth, windowHeight);
-   let Scale = min(windowWidth/imgTree.width, windowHeight/ imgTree.height);
-  TreeWidth = imgTree.width * Scale - padding;
-  TreeHeight =  imgTree.height * Scale - padding;
+  let s = fitToWindow(imgTree.width, imgTree.height, padding);
+  TreeWidth = round(s.w);
+  TreeHeight = round(s.h);
+  TreeX = round(s.x);
+  TreeY = round(s.y);
 }
 
 function mouseClicked(){
