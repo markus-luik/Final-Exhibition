@@ -46,8 +46,7 @@ function setup() {
 }
 
 function draw() {
-  // clear(); //empty background
-   background(255);
+  clear(); //empty background
   
   //Crowd
   image(imgCrowd, XCrowd, YCrowd, WidthCrowd, HeightCrowd);

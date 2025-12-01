@@ -17,7 +17,6 @@ function setup() {
   createCanvas(windowWidth, windowHeight, WEBGL);
   brush.load()
   angleMode(DEGREES);
-  background("#fffceb");
   
   imageMode(CENTER);
    let Scale = min(windowWidth/imgTree.width, windowHeight/ imgTree.height);
@@ -37,6 +36,7 @@ function setup() {
 function draw() {
     resetMatrix();
     translate(-width / 2, -height / 2);
+    clear(); //empty background
      
     
   // Update and draw all ripples

@@ -33,8 +33,8 @@ let left;
     let leftOpacity = defaultOpacity;
 
 function preload(){ //has to be preloaded :(
-  img = loadImage('Assets/TeaTime.JPG');
-  left = loadImage('Assets/Elephant.JPG');
+  img = loadImage('Assets/TeaTime.jpg');
+  left = loadImage('Assets/Elephant.jpg');
   right = loadImage('Assets/Fish.JPG');
 }
 
