@@ -1,12 +1,9 @@
-let nextPageRight = "TeeTime.html";
 let nextPageLeft = "Bedroom.html";
+let nextPageRight = "TeaTime.html";
 
 //side image defaults
 let defaultBrightness = 200;
 let defaultOpacity = 100;
-
-let randomvariable = 0;
-let randomvariable2 = 0;
 
 let img;
   let imgX;
@@ -19,7 +16,7 @@ let right;
     let rightY;
     let rightWidth;
     let rightHeight;
-        let rightSIZEmult = 2; 
+        let rightSIZEmult = 0.6; 
     let rightBrightness = defaultBrightness;
     let rightOpacity = defaultOpacity;
 let left;
@@ -27,14 +24,14 @@ let left;
     let leftY;
     let leftWidth;
     let leftHeight;
-        let leftSIZEmult = 0.75; 
+        let leftSIZEmult = 0.25; 
     let leftBrightness = defaultBrightness;
     let leftOpacity = defaultOpacity;
 
 function preload(){ //has to be preloaded :(
-  img = loadImage('Assets/Bedroom.JPG');
-  right = loadImage('Assets/Elephant.JPG');
-  left = loadImage('Assets/Fish.JPG');
+  img = loadImage('Assets/Elephant.JPG');
+  left = loadImage('Assets/Bedroom.JPG');
+  right = loadImage('Assets/TeaTime.JPG');
 }
 
 function setup() { 
@@ -46,8 +43,8 @@ function setup() {
 }
 
 function draw() { //(run indefinitely)
-  // clear(); //empty background
-   background(255);
+  clear(); //empty background
+//    background(255);
   
    //DRAWING IMAGES
    //right
@@ -67,20 +64,30 @@ function draw() { //(run indefinitely)
   
     //CURSOR CHANGE //NOTE: i'm sure there's a better way of structuring the cursor change aside from repeating it in both if statements
     if (!isMouseOver(imgX,imgY,imgWidth,imgHeight)) {  //NOT on the main image 
-        if (isMouseOver(rightX,rightY,rightWidth,rightHeight)){ //right
+        if (isMouseOver(rightX,rightY,rightWidth,rightHeight) ){ //right
             rightBrightness = 255;
             rightOpacity = 225;
             cursor(HAND);
-        } else{rightBrightness = defaultBrightness; rightOpacity = defaultOpacity;}
+        } else{
+            rightBrightness = defaultBrightness; 
+            rightOpacity = defaultOpacity;}
         if (isMouseOver(leftX,leftY,leftWidth,leftHeight)){ //left
             leftBrightness = 255;
             leftOpacity = 225;
             cursor(HAND);
-        } else{leftBrightness = defaultBrightness; leftOpacity = defaultOpacity;}
-    }else if (isMouseOver(imgX,imgY,imgWidth,imgHeight)){
-    cursor(ARROW);
+        } else{
+            leftBrightness = defaultBrightness; 
+            leftOpacity = defaultOpacity;}
+    } else{
+            cursor(ARROW);
+            leftBrightness = defaultBrightness; 
+            leftOpacity = defaultOpacity;
+            rightBrightness = defaultBrightness; 
+            rightOpacity = defaultOpacity;
     }
-      text(frameRate(), 10, 10);
+
+    //debugging fps
+    text(frameRate(), 10, 10);
 }
 
 function mouseClicked(){ // (p5.js)
@@ -125,7 +132,7 @@ function imagePositioner(){
     imgX = width/2;
     imgY = height/2;
     //right
-    rightX = width+125; //PROBLEM: 125 is hardcoded to make the elephant roughly equal distance to the fish (from the central image); however when the window has a small height, the elephant dissapears faster than the fish
+    rightX = width; //PROBLEM: 125 is hardcoded to make the elephant roughly equal distance to the fish (from the central image); however when the window has a small height, the elephant dissapears faster than the fish
     rightY = height/2;
     //left
     leftX = 0;

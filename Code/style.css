@@ -1,4 +1,14 @@
 body{
     padding:0px;
     margin:0px;
+  animation: fadeIn 1.6s ease-in forwards;
+  opacity: 0;
+  background-color: black;
+
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
 }
