@@ -22,7 +22,7 @@ function setup() {
 
 function draw() {
   clear(); //empty background
-  
+  //  background(255);
   //Tree
   TreeX = width/2;
   TreeY = height/2;
@@ -30,7 +30,8 @@ function draw() {
   
       //CURSOR CHANGE
      if (isMouseOverTree()) { 
-       cursor(HAND); 
+       cursor('/Assets/bird32.png'); 
+      //  cursor('/assets/target.png')
      }else{
        cursor(ARROW);
      }

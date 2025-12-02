@@ -40,8 +40,8 @@ function setup() {
 function draw() {
   resetMatrix();
   translate(-width / 2, -height / 2);
-  // clear(); //empty background
-   background(255);
+  clear(); //empty background
+  //  background(255);
   
   //Tree
   TreeX = width/2;

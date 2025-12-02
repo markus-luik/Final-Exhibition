@@ -32,6 +32,8 @@ let left;
     let leftBrightness = defaultBrightness;
     let leftOpacity = defaultOpacity;
 
+    let circleSize;
+
 
 function imagePositioner(){
     //checks img scale and references it to the others
@@ -45,6 +47,8 @@ function imagePositioner(){
     //left
     leftWidth = (left.width * Scale)*leftSIZEmult;
     leftHeight = (left.height * Scale)*leftSIZEmult;
+
+    circleSize = map(Scale, 0, 1, 50, 150)
 
   //Starting / Reset Locations
     //img
@@ -92,7 +96,15 @@ function draw() {
 
    //img
    image(img, imgX, imgY, imgWidth, imgHeight); 
-  
+
+   push()
+   fill(255);
+   let circleX = imgX-imgWidth/4;
+   let circleY = imgY+imgHeight/4;
+   circle(circleX,circleY, circleSize);
+   if(mouseX)
+   print(circleSize);
+  pop()
 
     //CURSOR CHANGE //NOTE: i'm sure there's a better way of structuring the cursor change aside from repeating it in both if statements
     if (!isMouseOver(imgX,imgY,imgWidth,imgHeight)) {  //NOT on the main image 
@@ -119,6 +131,8 @@ function draw() {
     }
 
       text(frameRate(), 10, 10);
+
+      
 }
 
 function windowResized() { //window resizer
