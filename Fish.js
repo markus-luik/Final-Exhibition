@@ -50,6 +50,9 @@ function setup() {
   	for (let i = 0; i < 15; i++) {
 		 bubbles[i] = new p5.Vector(random(0, width), random(0, width), 0);
 	}
+
+    markVisited('Fish');
+    print("Has gone to the Fish = "+ hasGoneToFish);
 }
 
 function draw() { //(run indefinitely)

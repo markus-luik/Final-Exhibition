@@ -31,6 +31,11 @@ function setup() {
   //window start x y
   WindowX = windowWidth/2-WindowWidth/2;
   WindowY = windowHeight/2-WindowHeight/2
+
+  hasGoneToBedroom = false;
+  hasGoneToFish = false;
+  hasGoneToElephant = false;
+  hasGoneToTeaTime = false;
 }
 
 function draw() {
