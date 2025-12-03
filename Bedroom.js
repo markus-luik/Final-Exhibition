@@ -6,9 +6,6 @@ let nextPage = "FinalPortrait.html";
 let defaultBrightness = 200;
 let defaultOpacity = 100;
 
-let randomvariable = 0;
-let randomvariable2 = 0;
-
 let img;
   let imgX;
   let imgY;
@@ -32,8 +29,126 @@ let left;
     let leftBrightness = defaultBrightness;
     let leftOpacity = defaultOpacity;
 
-    let circleSize;
+//interactions
+let interactionBird;
+let interactionMoon;
+let interactionMirror;
 
+function preload(){ //has to be preloaded :(
+  img = loadImage('Assets/Bedroom.JPG');
+  right = loadImage('Assets/Elephant.jpg');
+  left = loadImage('Assets/Fish.JPG');
+}
+
+function setup() {
+  createCanvas(700, 800);
+  resizeCanvas(windowWidth, windowHeight);
+
+  imageMode(CENTER);
+  rectMode(CENTER);
+  
+  //SETTING INTERACTIONS
+  //for interactions, a) make a global variable up top, b) create new Interaction here in setup and set its position with fractions, c) show interaction in draw loop, d) check for hover and clicks in draw and mouseClicked functions respectively
+  interactionBird = new Interaction(imgX,imgY,imgWidth,4,imgHeight,4,300,300);
+  interactionMoon = new Interaction(imgX,imgY,imgWidth,-34,imgHeight,-38,200,200);
+  interactionMirror = new Interaction(imgX,imgY,imgWidth,-2.55,imgHeight,-7,350,580);
+
+  //placing images & interactions
+  imagePositioner();
+
+  hasGoneToBedroom = true;
+  print("Has gone to the Bedroom = "+ hasGoneToBedroom)
+
+  //DEBUG
+  print(interactionBird);
+  print(interactionMoon);
+  print(interactionMirror);
+}
+
+function draw() {
+  // clear(); //empty background
+   background(255);
+  
+   //DRAWING IMAGES
+    //right
+   push();
+    tint(rightBrightness,rightOpacity);
+    image(right,rightX,rightY,rightWidth,rightHeight); 
+   pop();
+    //left
+   push();
+    tint(leftBrightness,leftOpacity);
+    image(left,leftX,leftY,leftWidth,leftHeight); 
+   pop();
+    //img
+   image(img, imgX, imgY, imgWidth, imgHeight); 
+
+    //CURSOR CHANGE //NOTE: i'm sure there's a better way of structuring this
+    if (!isMouseOver(leftX,leftY,leftWidth,leftHeight) && !isMouseOver(rightX,rightY,rightWidth,rightHeight)){ //left
+      cursor(ARROW);
+      leftBrightness = defaultBrightness;
+      leftOpacity = defaultOpacity;
+      rightBrightness = defaultBrightness;
+      rightOpacity = defaultOpacity;
+    } else if (isMouseOver(rightX,rightY,rightWidth,rightHeight)){ //right
+            rightBrightness = 255;
+            rightOpacity = 225;
+            cursor(HAND);
+        }else if (isMouseOver(leftX,leftY,leftWidth,leftHeight)){ //left
+            leftBrightness = 255;
+            leftOpacity = 225;
+            cursor(HAND);
+        }
+    
+    if (isMouseOver(imgX,imgY,imgWidth,imgHeight)){
+          cursor(ARROW);
+          leftBrightness = defaultBrightness;
+          leftOpacity = defaultOpacity;
+          rightBrightness = defaultBrightness;
+          rightOpacity = defaultOpacity;
+    }
+
+
+    //SHOW INTERACTIONS
+    interactionBird.show();
+    interactionMoon.show();
+    interactionMirror.show();
+
+    text(frameRate(), 10, 10);
+
+      
+}
+
+function windowResized() { //window resizer
+  resizeCanvas(windowWidth, windowHeight);
+  imagePositioner();
+
+}
+
+function mouseClicked(){
+    //check where to go based on click
+    //NOTE: this is currently clunky since the first if statement is already being tested in the draw loop
+    if(!isMouseOver(imgX,imgY,imgWidth,imgHeight)){
+        print(true);
+        //right
+        if( isMouseOver(rightX,rightY,rightWidth,rightHeight)){
+            window.location.href = nextPageRight;
+        }
+        //left
+        if(isMouseOver(leftX,leftY,leftWidth,leftHeight)){
+            window.location.href = nextPageLeft;
+        }
+    }
+
+    if(interactionBird.hoveredOver()){interactionBird.activate()};
+    if(interactionMoon.hoveredOver()){interactionMoon.activate()};
+    if(interactionMirror.hoveredOver()){interactionMirror.activate()};
+
+}
+
+function isMouseOver(somethingX, somethingY, somethingWidth, somethingHeight){
+  return(mouseX > somethingX-somethingWidth/2 && mouseY > somethingY-somethingHeight/2 && mouseX < somethingX+somethingWidth/2 && mouseY < somethingY+somethingHeight/2);
+}
 
 function imagePositioner(){
     //checks img scale and references it to the others
@@ -61,102 +176,8 @@ function imagePositioner(){
     leftX = 0;
     leftY = height/2;
 
-}
+    interactionBird.resetPos(imgX,imgY,imgWidth,imgHeight, Scale);
+    interactionMoon.resetPos(imgX,imgY,imgWidth,imgHeight, Scale);
+    interactionMirror.resetPos(imgX,imgY,imgWidth,imgHeight, Scale);
 
-function preload(){ //has to be preloaded :(
-  img = loadImage('Assets/Bedroom.JPG');
-  right = loadImage('Assets/Elephant.jpg');
-  left = loadImage('Assets/Fish.JPG');
-}
-
-function setup() {
-  createCanvas(700, 800);
-  resizeCanvas(windowWidth, windowHeight); //-1 to prevent scroll bars
-  
-  imageMode(CENTER);
-  imagePositioner();
-}
-
-function draw() {
-  clear(); //empty background
-  //  background(255);
-  
-   //DRAWING IMAGES
-   //right
-   push();
-    tint(rightBrightness,rightOpacity);
-    image(right,rightX,rightY,rightWidth,rightHeight); 
-   pop();
-
-   //left
-   push();
-    tint(leftBrightness,leftOpacity);
-    image(left,leftX,leftY,leftWidth,leftHeight); 
-   pop();
-
-   //img
-   image(img, imgX, imgY, imgWidth, imgHeight); 
-
-   push()
-   fill(255);
-   let circleX = imgX-imgWidth/4;
-   let circleY = imgY+imgHeight/4;
-   circle(circleX,circleY, circleSize);
-   if(mouseX)
-   print(circleSize);
-  pop()
-
-    //CURSOR CHANGE //NOTE: i'm sure there's a better way of structuring the cursor change aside from repeating it in both if statements
-    if (!isMouseOver(imgX,imgY,imgWidth,imgHeight)) {  //NOT on the main image 
-        if (isMouseOver(rightX,rightY,rightWidth,rightHeight)){ //right
-            rightBrightness = 255;
-            rightOpacity = 225;
-            cursor(HAND);
-        } else{
-          rightBrightness = defaultBrightness; 
-          rightOpacity = defaultOpacity;}
-        if (isMouseOver(leftX,leftY,leftWidth,leftHeight)){ //left
-            leftBrightness = 255;
-            leftOpacity = 225;
-            cursor(HAND);
-        } else{
-          leftBrightness = defaultBrightness; 
-          leftOpacity = defaultOpacity;}
-    } else{
-          cursor(ARROW);
-          leftBrightness = defaultBrightness;
-          leftOpacity = defaultOpacity;
-          rightBrightness = defaultBrightness;
-          rightOpacity = defaultOpacity;
-    }
-
-      text(frameRate(), 10, 10);
-
-      
-}
-
-function windowResized() { //window resizer
-  resizeCanvas(windowWidth, windowHeight);
-  imagePositioner();
-
-}
-
-function mouseClicked(){
-    //check where to go based on click
-    //NOTE: this is currently clunky since the first if statement is already being tested in the draw loop
-    if(!isMouseOver(imgX,imgY,imgWidth,imgHeight)){
-        print(true);
-        //right
-        if( isMouseOver(rightX,rightY,rightWidth,rightHeight)){
-            window.location.href = nextPageRight;
-        }
-        //left
-        if(isMouseOver(leftX,leftY,leftWidth,leftHeight)){
-            window.location.href = nextPageLeft;
-        }
-    }
-}
-
-function isMouseOver(somethingX, somethingY, somethingWidth, somethingHeight){
-  return(mouseX > somethingX-somethingWidth/2 && mouseY > somethingY-somethingHeight/2 && mouseX < somethingX+somethingWidth/2 && mouseY < somethingY+somethingHeight/2);
 }
