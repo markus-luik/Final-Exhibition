@@ -1,6 +1,6 @@
 let nextPageRight = "Elephant.html";
 let nextPageLeft = "Fish.html";
-let nextPage = "FinalPortrait.html";
+let nextPage = "Portrait.html";
 
 //side image defaults
 let defaultBrightness = 200;
@@ -50,8 +50,8 @@ function setup() {
   //SETTING INTERACTIONS
   //for interactions, a) make a global variable up top, b) create new Interaction here in setup and set its position with fractions, c) show interaction in draw loop, d) check for hover and clicks in draw and mouseClicked functions respectively
   interactionBird = new Interaction(imgX,imgY,imgWidth,4,imgHeight,4,300,300);
-  interactionMoon = new Interaction(imgX,imgY,imgWidth,-34,imgHeight,-38,200,200);
   interactionMirror = new Interaction(imgX,imgY,imgWidth,-2.55,imgHeight,-7,350,580);
+  interactionMoon = new Interaction(imgX,imgY,imgWidth,-34,imgHeight,-38,200,200);
 
   //placing images & interactions
   imagePositioner();
@@ -66,8 +66,8 @@ function setup() {
 }
 
 function draw() {
-  // clear(); //empty background
-   background(255);
+  clear(); //empty background
+  //background(255);
   
    //DRAWING IMAGES
     //right
@@ -111,8 +111,8 @@ function draw() {
 
     //SHOW INTERACTIONS
     interactionBird.show();
-    interactionMoon.show();
     interactionMirror.show();
+    if (hasGoneToBedroom && hasGoneToFish && hasGoneToElephant && hasGoneToTeaTime){interactionMoon.show();} // IF ALL PAINTINGS VISITED, SHOW MOON INTERACTION
 
     text(frameRate(), 10, 10);
 
@@ -141,8 +141,13 @@ function mouseClicked(){
     }
 
     if(interactionBird.hoveredOver()){interactionBird.activate()};
-    if(interactionMoon.hoveredOver()){interactionMoon.activate()};
     if(interactionMirror.hoveredOver()){interactionMirror.activate()};
+    if (hasGoneToBedroom && hasGoneToFish && hasGoneToElephant && hasGoneToTeaTime){ // IF ALL PAINTINGS VISITED, ALLOW MOON INTERACTION
+      if(interactionMoon.hoveredOver()){
+        interactionMoon.activate()
+        window.location.href = nextPage; 
+      };
+    } 
 
 }
 

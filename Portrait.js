@@ -1,13 +1,13 @@
 let nextPage = "CrowdTree.html";
-let imgTree;
-  let TreeX;
-  let TreeY;
-  let TreeWidth;
-  let TreeHeight;
+let img;
+  let imgX;
+  let imgY;
+  let imgWidth;
+  let imgHeight;
 let padding = 100;
 
 function preload(){ //has to be preloaded :(
-  imgTree = loadImage('Assets/FinalPortrait.JPG');
+  img = loadImage('Assets/FinalPortrait.JPG');
 }
 
 function setup() {
@@ -15,9 +15,9 @@ function setup() {
   resizeCanvas(windowWidth, windowHeight); //-1 to prevent scroll bars
   
   imageMode(CENTER);
-   let Scale = min(windowWidth/imgTree.width, windowHeight/ imgTree.height);
-  TreeWidth = imgTree.width * Scale - padding;
-  TreeHeight =  imgTree.height * Scale - padding;
+   let Scale = min(windowWidth/img.width, windowHeight/ img.height);
+  imgWidth = img.width * Scale - padding;
+  imgHeight =  img.height * Scale - padding;
 }
 
 function draw() {
@@ -25,13 +25,13 @@ function draw() {
    background(255);
   
   //Tree
-  TreeX = width/2;
-  TreeY = height/2;
-  image(imgTree, TreeX, TreeY, TreeWidth, TreeHeight);
+  imgX = width/2;
+  imgY = height/2;
+  image(img, imgX, imgY, imgWidth, imgHeight);
   
       //CURSOR CHANGE
-     if (isMouseOverTree()) { 
-       cursor(HAND); 
+     if (isMouseOverImg()) { 
+       cursor('/Assets/bird32.png'); 
      }else{
        cursor(ARROW);
      }
@@ -39,17 +39,17 @@ function draw() {
 
 function windowResized() { //window resizer
   resizeCanvas(windowWidth, windowHeight); //-1 to prevent scroll bars
-   let Scale = min(windowWidth/imgTree.width, windowHeight/ imgTree.height);
-  TreeWidth = imgTree.width * Scale - padding;
-  TreeHeight =  imgTree.height * Scale - padding;
+   let Scale = min(windowWidth/img.width, windowHeight/ img.height);
+  imgWidth = img.width * Scale - padding;
+  imgHeight =  img.height * Scale - padding;
 }
 
 function mouseClicked(){
-  if( isMouseOverTree()){
+  if( isMouseOverImg()){
     window.location.href = nextPage;
   }
 }
 
-function isMouseOverTree(){
-  return(mouseX > TreeX-TreeWidth/2 && mouseY > TreeY-TreeHeight/2 && mouseX < TreeX+TreeWidth/2 && mouseY < TreeY+TreeHeight/2);
+function isMouseOverImg(){
+  return(mouseX > imgX-imgWidth/2 && mouseY > imgY-imgHeight/2 && mouseX < imgX+imgWidth/2 && mouseY < imgY+imgHeight/2);
 }

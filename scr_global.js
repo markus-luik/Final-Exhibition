@@ -1,7 +1,7 @@
 let hasGoneToBedroom = false;
-let hasGoneToFish = false;
-let hasGoneToElephant = false;
-let hasGoneToTeaTime = false;
+let hasGoneToFish = true;
+let hasGoneToElephant = true;
+let hasGoneToTeaTime = true;
 
 class Interaction{
     constructor(imgX, imgY, imgWidth, fractW, imgHeight, fractH, width, height){
@@ -22,12 +22,14 @@ class Interaction{
 
     show(){
         push();
-        if(this.hoveredOver() && !this.active){
+        if(this.hoveredOver()){
             this.color = this.colorHover;
             cursor(HAND);
+            if(this.active){
+                this.color = this.colorActive;
+            }
         }else if (!this.active){
             this.color = this.colorRegular;
-            cursor(ARROW);
         }
         fill(this.color);
         rect(this.x, this.y, this.width, this.height);
@@ -42,8 +44,7 @@ class Interaction{
     }
 
     activate(){
-        this.active = true;
-        this.color = this.colorActive; 
+        if (!this.active) this.active = true; else this.active = false;
         print("activated");
     }
 
