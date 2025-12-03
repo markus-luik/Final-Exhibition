@@ -32,9 +32,20 @@ let left;
     let leftOpacity = defaultOpacity;
 
 function preload(){ //has to be preloaded :(
-    eyeleft = loadImage("/Assets/fishEyesLeft.png");
-    eyeright = loadImage("/Assets/fishEyesRight.png");
-    mouse = loadImage("/Assets/fishMouse.png");
+    // Uses relative paths
+    // Error callbacks to catch missing files.
+    eyeleft = loadImage('Assets/fishEyesLeft.png',
+        img => { eyeleft = img; },
+        err => { console.warn('Failed to load eyeleft:', err); }
+    );
+    eyeright = loadImage('Assets/fishEyesRight.png',
+        img => { eyeright = img; },
+        err => { console.warn('Failed to load eyeright:', err); }
+    );
+    mouse = loadImage('Assets/fishMouse.png',
+        img => { mouse = img; },
+        err => { console.warn('Failed to load mouse image:', err); }
+    );
     img = loadImage('Assets/Fish.JPG');
     left = loadImage('Assets/TeaTime.jpg');
     right = loadImage('Assets/Bedroom.JPG');
