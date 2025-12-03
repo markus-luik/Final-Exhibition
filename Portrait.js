@@ -98,7 +98,7 @@ function draw() {
   
   // Change cursor when mouse is over the main image
   if (isMouseOverImg()) { 
-    cursor('/Assets/bird32.png'); // Custom bird cursor
+    cursor('Assets/bird32.png'); // Custom bird cursor
   } else {
     cursor(ARROW); // Default arrow cursor
   }

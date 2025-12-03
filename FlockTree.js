@@ -47,7 +47,7 @@ function draw() {
   
       //CURSOR CHANGE
      if (isMouseOverTree()) { 
-       cursor('/Assets/bird32.png'); 
+       cursor('Assets/bird32.png'); 
       //  cursor('/assets/target.png')
      }else{
        cursor(ARROW);

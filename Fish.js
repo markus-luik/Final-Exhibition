@@ -31,6 +31,10 @@ let left;
     let leftBrightness = defaultBrightness;
     let leftOpacity = defaultOpacity;
 
+let eyeleft;
+let eyeright;
+let mouth;
+
 function preload(){ //has to be preloaded :(
     // Uses relative paths
     // Error callbacks to catch missing files.
@@ -42,9 +46,9 @@ function preload(){ //has to be preloaded :(
         img => { eyeright = img; },
         err => { console.warn('Failed to load eyeright:', err); }
     );
-    mouse = loadImage('Assets/fishMouse.png',
-        img => { mouse = img; },
-        err => { console.warn('Failed to load mouse image:', err); }
+    mouth = loadImage('Assets/fishMouth.png',
+        img => { mouth = img; },
+        err => { console.warn('Failed to load mouth image:', err); }
     );
     img = loadImage('Assets/Fish.JPG');
     left = loadImage('Assets/TeaTime.jpg');
@@ -102,7 +106,7 @@ function draw() { //(run indefinitely)
     let baseW = imgWidth/10;
     let baseH = imgHeight/10;
 
-    // Grow based on mouse X
+    // Grow based on mouth X
     let scaleAmount = map(mouseX, 0, width, 0.5, 2);  
     let scaleMouse = map(mouseX, 0, width, 1.8, 3.5);  
     // New size
@@ -113,7 +117,7 @@ function draw() { //(run indefinitely)
     // Draw image centered so enlargement expands in ALL directions
     image(eyeleft, imgX-imgWidth/4.1, imgY-imgHeight/50, w, h);
     image(eyeright, imgX+imgWidth/3.8, imgY-imgHeight/30, w, h);
-    image(mouse, imgX, imgY+imgHeight/6, w1, h1);
+    image(mouth, imgX, imgY+imgHeight/6, w1, h1);
 
 
     // Moving Points (Eyes substitute) 
@@ -141,7 +145,7 @@ function draw() { //(run indefinitely)
             leftBrightness = defaultBrightness; 
             leftOpacity = defaultOpacity;}
     }else{
-            cursor('/Assets/bird32.png'); //currently only run once
+            cursor('Assets/bird32.png'); //currently only run once
             leftBrightness = defaultBrightness; 
             leftOpacity = defaultOpacity;
             rightBrightness = defaultBrightness; 
