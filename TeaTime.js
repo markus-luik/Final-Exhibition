@@ -32,6 +32,7 @@ let left;
     let leftBrightness = defaultBrightness;
     let leftOpacity = defaultOpacity;
 
+
 function preload(){ //has to be preloaded :(
   img = loadImage('Assets/TeaTime.jpg');
   left = loadImage('Assets/Elephant.jpg');
@@ -47,9 +48,7 @@ function setup() {
 }
 
 function draw() { //(run indefinitely)
-  clear(); //empty background
-//    background(255);
-  
+  clear(); //empty background  
    //DRAWING IMAGES
    //right
    push();
@@ -71,14 +70,14 @@ function draw() { //(run indefinitely)
         if (isMouseOver(rightX,rightY,rightWidth,rightHeight)){ //right
             rightBrightness = 255;
             rightOpacity = 225;
-            cursor(HAND);
+            cursor('e-resize');
         } else{
             rightBrightness = defaultBrightness; 
             rightOpacity = defaultOpacity;}
         if (isMouseOver(leftX,leftY,leftWidth,leftHeight)){ //left
             leftBrightness = 255;
             leftOpacity = 225;
-            cursor(HAND);
+            cursor('w-resize');
         } else{
             leftBrightness = defaultBrightness; 
             leftOpacity = defaultOpacity;}
@@ -89,6 +88,7 @@ function draw() { //(run indefinitely)
             rightBrightness = defaultBrightness; 
             rightOpacity = defaultOpacity;
     }
+
 }
 
 function mouseClicked(){ // (p5.js)
@@ -133,9 +133,9 @@ function imagePositioner(){
     imgX = width/2;
     imgY = height/2;
     //right
-    rightX = width+20; //PROBLEM: 125 is hardcoded to make the elephant roughly equal distance to the fish (from the central image); however when the window has a small height, the elephant dissapears faster than the fish
+    rightX = width+150; //PROBLEM: 125 is hardcoded to make the elephant roughly equal distance to the fish (from the central image); however when the window has a small height, the elephant dissapears faster than the fish
     rightY = height/2;
     //left
-    leftX = -100;
+    leftX = -250;
     leftY = height/2;
 }

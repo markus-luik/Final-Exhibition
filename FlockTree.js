@@ -20,23 +20,6 @@ function setup() {
   TreeHeight =  imgTree.height * Scale - padding;
 }
 
-function draw() {
-  clear(); //empty background
-  //  background(255);
-  //Tree
-  TreeX = width/2;
-  TreeY = height/2;
-  image(imgTree, TreeX, TreeY, TreeWidth, TreeHeight);
-  
-      //CURSOR CHANGE
-     if (isMouseOverTree()) { 
-       cursor('/Assets/bird32.png'); 
-      //  cursor('/assets/target.png')
-     }else{
-       cursor(ARROW);
-     }
-}
-
 function windowResized() { //window resizer
   resizeCanvas(windowWidth, windowHeight);
    let Scale = min(windowWidth/imgTree.width, windowHeight/ imgTree.height);
@@ -52,4 +35,21 @@ function mouseClicked(){
 
 function isMouseOverTree(){
   return(mouseX > TreeX-TreeWidth/2 && mouseY > TreeY-TreeHeight/2 && mouseX < TreeX+TreeWidth/2 && mouseY < TreeY+TreeHeight/2);
+}
+
+function draw() {
+  clear(); //empty background
+  //  background(255);
+  //Tree
+  TreeX = width/2;
+  TreeY = height/2;
+  image(imgTree, TreeX, TreeY, TreeWidth, TreeHeight);
+  
+      //CURSOR CHANGE
+     if (isMouseOverTree()) { 
+       cursor('/Assets/bird32.png'); 
+      //  cursor('/assets/target.png')
+     }else{
+       cursor(ARROW);
+     }
 }

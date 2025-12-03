@@ -72,9 +72,9 @@ function draw() {
   
     //CURSOR CHANGE
      if (isMouseOverWindow()) { 
-       cursor(HAND); 
+       cursor('help'); 
      }else{
-       cursor(ARROW);
+       cursor('not-allowed');
      }
 }
 

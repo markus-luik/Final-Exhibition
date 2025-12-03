@@ -28,7 +28,11 @@ let left;
     let leftBrightness = defaultBrightness;
     let leftOpacity = defaultOpacity;
 
+let scaleAmount = 1;
+let targetScale = 1;
+
 function preload(){ //has to be preloaded :(
+  elephant9 = loadImage('Assets/elephant9.png');
   img = loadImage('Assets/Elephant.jpg');
   left = loadImage('Assets/Bedroom.JPG');
   right = loadImage('Assets/TeaTime.jpg');
@@ -61,6 +65,10 @@ function draw() { //(run indefinitely)
 
    //img
    image(img, imgX, imgY, imgWidth, imgHeight); 
+   image(elephant9,imgX,imgY,imgWidth,imgHeight) // did not figure out how to let elephant scales up within the imgWidth& imgHeight
+
+
+
   
     //CURSOR CHANGE //NOTE: i'm sure there's a better way of structuring the cursor change aside from repeating it in both if statements
     if (!isMouseOver(imgX,imgY,imgWidth,imgHeight)) {  //NOT on the main image 
@@ -85,7 +93,6 @@ function draw() { //(run indefinitely)
             rightBrightness = defaultBrightness; 
             rightOpacity = defaultOpacity;
     }
-
     //debugging fps
     text(frameRate(), 10, 10);
 }
@@ -118,8 +125,8 @@ function imagePositioner(){
     //checks img scale and references it to the others
     //img
     let Scale = min(windowWidth/img.width, windowHeight/ img.height);
-    imgWidth = img.width * Scale - padding;
-    imgHeight =  img.height * Scale - padding;
+    imgWidth = img.width * Scale;
+    imgHeight =  img.height * Scale;
     //right
     rightWidth = (right.width * Scale)*rightSIZEmult;
     rightHeight = (right.height * Scale)*rightSIZEmult;
