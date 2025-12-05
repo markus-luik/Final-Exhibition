@@ -10,9 +10,16 @@ let imgTree;
   let WidthTree;
   let HeightTree;
 let padding = 0;
-let movement_freedom_px = 70;
+let movement_freedom_px = 120;
 let mov_speed = 2;
 let size_factor = 0.90;
+
+//background colors
+let startingColor = [255,0,0];
+let bgR = startingColor[0];
+let bgG = startingColor[1];
+let bgB = startingColor[2];
+let opacity = 20;
 
 function preload(){ //images preload
   imgCrowd = loadImage('Assets/CrowdTree_Crowd.png');
@@ -46,7 +53,39 @@ function setup() {
 }
 
 function draw() {
-  clear(); //empty background
+  // clear(); //empty background
+  background(5, 5, 5, 10);
+  background(bgR,bgG,bgB,opacity);
+
+  if(YTree > (-height/3) && YTree < (height/20)){
+    bgR = map(YTree, -height/3, height/20, 255, 0);
+    bgB = map(YTree, -height/3, height/20, 0, 255);
+  }
+  if(YTree > (height/20) && YTree < (height/2)){
+    bgG = map(YTree, height/20, height/2, 0, 255);
+    bgB = map(YTree, height/20, height/2, 255, 0);
+  }
+
+    //DEBUG/////
+      if(debugMode){
+        push();
+          //text settings
+          textSize(12);
+          fill(255);
+            //YTree
+          text(YTree, 10, 10);
+            //breakpoints
+          text("-height/3 = " + (-height/3), 10, 30);
+          text("height/20 = " + (height/20), 10, 45);
+          text("height/2 = " + (height/2), 10, 60);
+            //rgb
+          text("bgR = " + bgR, 10, 90);
+          text("bgG = " + bgG, 10, 105);
+          text("bgB = " + bgB, 10, 120);
+        pop();
+      }
+    /////////
+  
   
   //Crowd
   image(imgCrowd, XCrowd, YCrowd, WidthCrowd, HeightCrowd);

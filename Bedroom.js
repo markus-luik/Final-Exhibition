@@ -93,9 +93,9 @@ function setup() {
   print("Has gone to the Tea Time = "+ hasGoneToTeaTime);
 
   //DEBUG
-  print(interactionBird);
-  print(interactionMoon);
-  print(interactionMirror);
+  // print(interactionBird);
+  // print(interactionMoon);
+  // print(interactionMirror);
 
   //Moon SetUp
   colorMode(HSB, 360, 100, 100, 100);
@@ -158,6 +158,19 @@ function draw() {
     //   {interactionMoon.show();} // IF ALL PAINTINGS VISITED, SHOW MOON INTERACTION
 
 
+    //DEBUG/////
+    if(debugMode){
+      push();
+        //text settings
+        textSize(12);
+        fill(255);
+        //text - FPS
+        text(frameRate(), 10, 10);
+      pop();
+    }
+    /////////
+
+      
     //Moon Draw
     imageNeon(interactionMoon.x, interactionMoon.y, interactionMoon.width, interactionMoon.height, color(332, 58, 91, 100));
     }
