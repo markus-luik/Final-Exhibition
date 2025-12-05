@@ -30,8 +30,8 @@ let interactionRight;
 
 function preload(){ //has to be preloaded :(
   // Load all images before setup() runs so they're available immediately
-  img = loadImage('Assets/FinalPortrait.JPG');
-  img_closeupLeft = loadImage('Assets/FinalPortrait_closeup_blue.JPG');
+  img = loadImage('Assets/FinalPortrait.jpg');
+  img_closeupLeft = loadImage('Assets/FinalPortrait_closeup_blue.jpg');
   img_closeupRight = loadImage('Assets/FinalPortrait_closeup_red.JPG');
 }
 

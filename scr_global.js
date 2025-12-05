@@ -1,4 +1,4 @@
-// scr_global.js — persistent visited flags
+// scr_global.js is readable by all pages and contains shared code and variables.
 
 // Initialize flags from localStorage (persist across page loads).
 // Use sessionStorage instead if you want values to clear when the tab closes.
@@ -6,6 +6,9 @@ let hasGoneToBedroom = localStorage.getItem('hasGoneToBedroom') === 'true';
 let hasGoneToFish = localStorage.getItem('hasGoneToFish') === 'true';
 let hasGoneToElephant = localStorage.getItem('hasGoneToElephant') === 'true';
 let hasGoneToTeaTime = localStorage.getItem('hasGoneToTeaTime') === 'true';
+
+//debug mode boolean
+debugMode = false;
 
 // Utility: mark a painting visited (call from each page when user arrives)
 function markVisited(painting) {
