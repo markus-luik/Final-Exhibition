@@ -34,7 +34,12 @@ let interactionBird;
 let interactionMoon;
 let interactionMirror;
 
+let moon;
+let offset = 0.0;
+
+//load image
 function preload(){ //has to be preloaded :(
+  moon = loadImage('Assets/moon.png');
   img = loadImage('Assets/Bedroom.JPG');
   right = loadImage('Assets/Elephant.jpg');
   left = loadImage('Assets/Fish.JPG');
@@ -48,7 +53,11 @@ function setup() {
   rectMode(CENTER);
   
   //SETTING INTERACTIONS
-  //for interactions, a) make a global variable up top, b) create new Interaction here in setup and set its position with fractions, c) show interaction in draw loop, d) check for hover and clicks in draw and mouseClicked functions respectively
+  //for interactions,
+  // a) make a global variable up top, 
+  // b) create new Interaction here in setup and set its position with fractions, 
+  // c) show interaction in draw loop, 
+  // d) check for hover and clicks in draw and mouseClicked functions respectively
   interactionBird = new Interaction(imgX,imgY,imgWidth,4,imgHeight,4,300,300);
   interactionMirror = new Interaction(imgX,imgY,imgWidth,-2.55,imgHeight,-7,350,580);
   interactionMoon = new Interaction(imgX,imgY,imgWidth,-34,imgHeight,-38,200,200);
@@ -63,6 +72,13 @@ function setup() {
   print(interactionBird);
   print(interactionMoon);
   print(interactionMirror);
+
+  //Moon SetUp
+  colorMode(HSB, 360, 100, 100, 100);
+  rectMode(CENTER);
+  pixelDensity(2); // eliminate jaggies
+  frameRate(24); // offet pixel density drag on processing
+  text(frameRate(), 10, 10);
 }
 
 function draw() {
@@ -106,23 +122,26 @@ function draw() {
           leftOpacity = defaultOpacity;
           rightBrightness = defaultBrightness;
           rightOpacity = defaultOpacity;
-    }
 
 
     //SHOW INTERACTIONS
     interactionBird.show();
     interactionMirror.show();
-    if (hasGoneToBedroom && hasGoneToFish && hasGoneToElephant && hasGoneToTeaTime){interactionMoon.show();} // IF ALL PAINTINGS VISITED, SHOW MOON INTERACTION
+    // if (hasGoneToBedroom 
+    //   && hasGoneToFish 
+    //   && hasGoneToElephant 
+    //   && hasGoneToTeaTime)
+    //   {interactionMoon.show();} // IF ALL PAINTINGS VISITED, SHOW MOON INTERACTION
 
-    text(frameRate(), 10, 10);
 
-      
+    //Moon Draw
+    imageNeon(interactionMoon.x, interactionMoon.y, interactionMoon.width, interactionMoon.height, color(332, 58, 91, 100));
+    }
 }
 
 function windowResized() { //window resizer
   resizeCanvas(windowWidth, windowHeight);
   imagePositioner();
-
 }
 
 function mouseClicked(){
@@ -185,4 +204,33 @@ function imagePositioner(){
     interactionMoon.resetPos(imgX,imgY,imgWidth,imgHeight, Scale);
     interactionMirror.resetPos(imgX,imgY,imgWidth,imgHeight, Scale);
 
+}
+
+//Moon effect
+function imageNeon(imgX, imgY, width, height, glowColor) {
+  // tint(h, s, b, transparency) overlaid on image
+  tint(0, 0, 40, 100);
+  glow(glowColor, 0);
+  image(moon, imgX, imgY, width, height);
+  tint(0, 0, 100, flickering());
+  glow(glowColor, 160);
+  image(moon, imgX, imgY, width, height);
+  image(moon, imgX, imgY, width, height);
+  glow(glowColor, 80);
+  image(moon, imgX, imgY, width, height);
+  image(moon, imgX, imgY, width, height);
+  glow(glowColor, 12);
+  image(moon, imgX, imgY, width, height);
+  image(moon, imgX, imgY, width, height);
+  tint(0, 0, 100, 100);
+}
+function glow(glowColor, blurriness) {
+  drawingContext.shadowColor = glowColor;
+  drawingContext.shadowBlur = blurriness;
+}
+function flickering() {
+  offset += 0.08;
+  let n = noise(offset);
+  if (n < 0.30) return 0;
+  else return 100;
 }
