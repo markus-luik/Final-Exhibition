@@ -31,10 +31,25 @@ let left;
     let leftBrightness = defaultBrightness;
     let leftOpacity = defaultOpacity;
 
+let eyeleft;
+let eyeright;
+let mouth;
+
 function preload(){ //has to be preloaded :(
-    eyeleft = loadImage("/Assets/fishEyesLeft.png");
-    eyeright = loadImage("/Assets/fishEyesRight.png");
-    mouse = loadImage("/Assets/fishMouse.png");
+    // Uses relative paths
+    // Error callbacks to catch missing files.
+    eyeleft = loadImage('Assets/fishEyesLeft.png',
+        img => { eyeleft = img; },
+        err => { console.warn('Failed to load eyeleft:', err); }
+    );
+    eyeright = loadImage('Assets/fishEyesRight.png',
+        img => { eyeright = img; },
+        err => { console.warn('Failed to load eyeright:', err); }
+    );
+    mouth = loadImage('Assets/fishMouth.png',
+        img => { mouth = img; },
+        err => { console.warn('Failed to load mouth image:', err); }
+    );
     img = loadImage('Assets/Fish.JPG');
     left = loadImage('Assets/TeaTime.jpg');
     right = loadImage('Assets/Bedroom.JPG');
@@ -50,6 +65,9 @@ function setup() {
   	for (let i = 0; i < 15; i++) {
 		 bubbles[i] = new p5.Vector(random(0, width), random(0, width), 0);
 	}
+
+    markVisited('Fish');
+    print("Has gone to the Fish = "+ hasGoneToFish);
 }
 
 function draw() { //(run indefinitely)
@@ -88,7 +106,7 @@ function draw() { //(run indefinitely)
     let baseW = imgWidth/10;
     let baseH = imgHeight/10;
 
-    // Grow based on mouse X
+    // Grow based on mouth X
     let scaleAmount = map(mouseX, 0, width, 0.5, 2);  
     let scaleMouse = map(mouseX, 0, width, 1.8, 3.5);  
     // New size
@@ -99,7 +117,7 @@ function draw() { //(run indefinitely)
     // Draw image centered so enlargement expands in ALL directions
     image(eyeleft, imgX-imgWidth/4.1, imgY-imgHeight/50, w, h);
     image(eyeright, imgX+imgWidth/3.8, imgY-imgHeight/30, w, h);
-    image(mouse, imgX, imgY+imgHeight/6, w1, h1);
+    image(mouth, imgX, imgY+imgHeight/6, w1, h1);
 
 
     // Moving Points (Eyes substitute) 
@@ -127,7 +145,7 @@ function draw() { //(run indefinitely)
             leftBrightness = defaultBrightness; 
             leftOpacity = defaultOpacity;}
     }else{
-            cursor('/Assets/bird32.png'); //currently only run once
+            cursor('Assets/bird32.png'); //currently only run once
             leftBrightness = defaultBrightness; 
             leftOpacity = defaultOpacity;
             rightBrightness = defaultBrightness; 

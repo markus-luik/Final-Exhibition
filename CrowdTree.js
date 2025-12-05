@@ -112,9 +112,11 @@ function windowResized() { //window resizer
   //sets width & height
     //NOTE: Crowd scaling is based on tree scaling
     //tree
-      let ScaleTree = min(windowWidth/imgTree.width, windowHeight/ imgTree.height); //determines ratio/scale of image
-    WidthTree = imgTree.width * ScaleTree - padding;
-    HeightTree =  imgTree.height * ScaleTree - padding;
+    let availableW = max(0, windowWidth - padding);
+    let availableH = max(0, windowHeight - padding);
+      let ScaleTree = min(availableW/imgTree.width, availableH/ imgTree.height); //determines ratio/scale of image
+    WidthTree = imgTree.width * ScaleTree;
+    HeightTree =  imgTree.height * ScaleTree;
      //crowd
     WidthCrowd = imgCrowd.width * ScaleTree - padding;
     HeightCrowd = imgCrowd.height * ScaleTree - padding;

@@ -44,6 +44,9 @@ function setup() {
   
   imageMode(CENTER);
   imagePositioner();
+
+  markVisited('Elephant');
+  print("Has gone to the Elephant = "+ hasGoneToElephant)
 }
 
 function draw() { //(run indefinitely)

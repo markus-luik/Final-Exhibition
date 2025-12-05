@@ -65,8 +65,32 @@ function setup() {
   //placing images & interactions
   imagePositioner();
 
-  hasGoneToBedroom = true;
+  //SETTING INTERACTIONS (create after imagePositioner so imgWidth/imgHeight exist)
+  // convert old fract values to relative offsets: relX = -1/fractW, relY = 1/fractH
+  // compute size ratios from the intended pixel sizes so boxes keep the same visual size
+  let birdRelX = -1/4;
+  let birdRelY = 1/4;
+  let birdWratio = 0.20; //this is a fraction of the image width
+  let birdHratio = 0.20;
+  interactionBird = new Interaction(imgX, imgY, imgWidth, imgHeight, birdRelX, birdRelY, birdWratio, birdHratio);
+
+  let mirrorRelX = -1 / -2.55; // = +0.392...
+  let mirrorRelY = 1 / -7;     // = -0.1428...
+  let mirrorWratio = 90; //this is in pixels
+  let mirrorHratio = 130;
+  interactionMirror = new Interaction(imgX, imgY, imgWidth, imgHeight, mirrorRelX, mirrorRelY, mirrorWratio, mirrorHratio);
+
+  let moonRelX = -1 / -34; // small positive offset
+  let moonRelY = 1 / -38;  // small negative offset
+  let moonWratio = 90;
+  let moonHratio = 90;
+  interactionMoon = new Interaction(imgX, imgY, imgWidth, imgHeight, moonRelX, moonRelY, moonWratio, moonHratio);
+
+  markVisited('Bedroom');
   print("Has gone to the Bedroom = "+ hasGoneToBedroom)
+  print("Has gone to the Fish = "+ hasGoneToFish);
+  print("Has gone to the Elephant = "+ hasGoneToElephant);
+  print("Has gone to the Tea Time = "+ hasGoneToTeaTime);
 
   //DEBUG
   print(interactionBird);
@@ -176,10 +200,12 @@ function isMouseOver(somethingX, somethingY, somethingWidth, somethingHeight){
 
 function imagePositioner(){
     //checks img scale and references it to the others
-    //img
-    let Scale = min(windowWidth/img.width, windowHeight/ img.height);
-    imgWidth = img.width * Scale - padding;
-    imgHeight =  img.height * Scale - padding;
+    //img — compute scale from available area (subtract padding first) to preserve aspect ratio
+    let availableW = max(0, windowWidth - padding);
+    let availableH = max(0, windowHeight - padding);
+    let Scale = min(availableW / img.width, availableH / img.height);
+    imgWidth = img.width * Scale;
+    imgHeight = img.height * Scale;
     //right
     rightWidth = (right.width * Scale)*rightSIZEmult;
     rightHeight = (right.height * Scale)*rightSIZEmult;
@@ -187,7 +213,7 @@ function imagePositioner(){
     leftWidth = (left.width * Scale)*leftSIZEmult;
     leftHeight = (left.height * Scale)*leftSIZEmult;
 
-    circleSize = map(Scale, 0, 1, 50, 150)
+    // circleSize = map(Scale, 0, 1, 50, 150)
 
   //Starting / Reset Locations
     //img
@@ -200,9 +226,15 @@ function imagePositioner(){
     leftX = 0;
     leftY = height/2;
 
-    interactionBird.resetPos(imgX,imgY,imgWidth,imgHeight, Scale);
-    interactionMoon.resetPos(imgX,imgY,imgWidth,imgHeight, Scale);
-    interactionMirror.resetPos(imgX,imgY,imgWidth,imgHeight, Scale);
+    if (typeof interactionBird !== 'undefined' && interactionBird) {
+      interactionBird.resetPos(imgX,imgY,imgWidth,imgHeight, Scale);
+    }
+    if (typeof interactionMoon !== 'undefined' && interactionMoon) {
+      interactionMoon.resetPos(imgX,imgY,imgWidth,imgHeight, Scale);
+    }
+    if (typeof interactionMirror !== 'undefined' && interactionMirror) {
+      interactionMirror.resetPos(imgX,imgY,imgWidth,imgHeight, Scale);
+    }
 
 }
 

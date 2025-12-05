@@ -45,6 +45,9 @@ function setup() {
   
   imageMode(CENTER);
   imagePositioner();
+
+    markVisited('TeaTime');
+    print("Has gone to the Tea Time = "+ hasGoneToTeaTime);
 }
 
 function draw() { //(run indefinitely)
