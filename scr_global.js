@@ -8,7 +8,7 @@ let hasGoneToElephant = localStorage.getItem('hasGoneToElephant') === 'true';
 let hasGoneToTeaTime = localStorage.getItem('hasGoneToTeaTime') === 'true';
 
 //debug mode boolean
-debugMode = false;
+bugCathcerMode = true;
 
 // Utility: mark a painting visited (call from each page when user arrives)
 function markVisited(painting) {
@@ -22,7 +22,7 @@ function markVisited(painting) {
   else if (painting === 'TeaTime') hasGoneToTeaTime = true;
 }
 
-// Optional helper to reset all visit flags (for testing)
+// Optional helper to reset all visit flags (for testing) -- not used anywhere currently
 function resetVisited() {
   localStorage.removeItem('hasGoneToBedroom');
   localStorage.removeItem('hasGoneToFish');
@@ -55,6 +55,34 @@ class Interaction {
     // Initialize based on current image geometry
     this.resetPos(imgX, imgY, imgWidth, imgHeight);
   }
+  
+  static placementMode(imgX, imgY, imgWidth, imgHeight) {
+    let step = 0; // 0: waiting, 1: center placed, 2: size placed
+    let centerX, centerY, sizeX, sizeY;
+
+    return {
+      isActive: () => step > 0,
+      handleClick: (mx, my) => {
+        if (step === 0) {
+          centerX = mx;
+          centerY = my;
+          step = 1;
+          console.log("Center placed. Click to set size.");
+        } else if (step === 1) {
+          sizeX = Math.abs(mx - centerX) * 2;
+          sizeY = Math.abs(my - centerY) * 2;
+          step = 2;
+          const relX = ((centerX - imgX) / imgWidth).toFixed(3);
+          const relY = ((centerY - imgY) / imgHeight).toFixed(3);
+          const sizeWratio = (sizeX / imgWidth).toFixed(3);
+          const sizeHratio = (sizeY / imgHeight).toFixed(3);
+          console.log(`new Interaction(imgX, imgY, imgWidth, imgHeight, ${relX}, ${relY}, ${sizeWratio}, ${sizeHratio})`);
+          step = 0;
+        }
+      },
+      reset: () => { step = 0; }
+    };
+  }
 
   show() {
     push();
@@ -66,7 +94,7 @@ class Interaction {
       this.color = this.colorRegular;
     }
     fill(this.color);
-    //rect(this.x, this.y, this.width, this.height);
+    rect(this.x, this.y, this.width, this.height);
     pop();
   }
 
@@ -96,7 +124,64 @@ class Interaction {
   }
 }
 
-//THIS IS CURRENTLY IN EVERY SCRIPT BUT CAN BE MOVED HERE
-// function isMouseOver(somethingX, somethingY, somethingWidth, somethingHeight){
-//   return(mouseX > somethingX-somethingWidth/2 && mouseY > somethingY-somethingHeight/2 && mouseX < somethingX+somethingWidth/2 && mouseY < somethingY+somethingHeight/2);
-// }
+/**
+ * Checks if mouse is over a defined rectangle
+ * @param {number} x  - X coordinate of the center of the area
+ * @param {number} y - Y coordinate of the center of the area
+ * @param {number} Width - Width of the area
+ * @param {number} Height - Height of the area
+ * @returns {boolean} True if mouse is over the area, false otherwise
+ */
+function isMouseOver(x, y, Width, Height){
+  return(mouseX > x-Width/2 && mouseY > y-Height/2 && mouseX < x+Width/2 && mouseY < y+Height/2);
+}
+
+/**
+ * Calculates responsive image dimensions while maintaining aspect ratio
+ * @param {p5.Image} image - The image to scale (must be loaded)
+ * @param {number} paddingPx - Padding to subtract from available space (default: 0)
+ * @param {number} sizeMultiplier - Optional multiplier for final dimensions (default: 1)
+ * @returns {Object} Object with width and height properties, or null if validation fails
+ */
+function imageSizeCalculator(img, imgWidth, imgHeight, padding = 0, sizeMultiplier = 1){
+  //a lot of this was written with AI assistance
+        // Validation: check if image is valid
+      if (!img || !img.width || !img.height) {
+        console.warn('calculateImageScale: Invalid image. Image must be loaded with width and height.');
+        return null;
+      }
+      //Validation: check if window dimensions are valid
+      if (windowWidth <= 0 || windowHeight <= 0) {
+        console.warn('calculateImageScale: Invalid window dimensions.');
+        return null;
+      }
+      //Validation: check if window dimensions are valid
+      if (windowWidth <= 0 || windowHeight <= 0) {
+        console.warn('calculateImageScale: Invalid window dimensions.');
+        return null;
+      }
+      // Validation: check if size multiplier is positive
+      if (sizeMultiplier <= 0) {
+        console.warn('calculateImageScale: Size multiplier must be positive.');
+        return null;
+      }
+      // Calculate available space
+      let availableW = max(0, windowWidth - padding);
+      let availableH = max(0, windowHeight - padding);
+
+      // Avoid division by zero
+      if (availableW === 0 || availableH === 0) {
+        console.warn('calculateImageScale: No available space after padding.');
+        return null;
+      }
+
+      // Calculate scale factor (maintains aspect ratio)
+      let Scale = min(availableW / img.width, availableH / img.height);
+      print(Scale);
+
+      return{
+        width: (img.width * Scale)*sizeMultiplier,
+        height: (img.height * Scale)*sizeMultiplier,
+        Scale: Scale
+      }
+    }
