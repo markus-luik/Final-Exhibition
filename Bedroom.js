@@ -17,7 +17,7 @@ let right;
     let rightY;
     let rightWidth;
     let rightHeight;
-        let rightSIZEmult = 1.7; 
+        let rightSIZEmult = 0.7; 
     let rightBrightness = defaultBrightness;
     let rightOpacity = defaultOpacity;
 let left;
@@ -45,6 +45,59 @@ function preload(){ //has to be preloaded :(
   left = loadImage('Assets/Fish.JPG');
 }
 
+// /**
+//  * Calculates responsive image dimensions while maintaining aspect ratio
+//  * @param {p5.Image} image - The image to scale (must be loaded)
+//  * @param {number} paddingPx - Padding to subtract from available space (default: 0)
+//  * @param {number} sizeMultiplier - Optional multiplier for final dimensions (default: 1)
+//  * @returns {Object} Object with width and height properties, or null if validation fails
+//  */
+// function calculateImageScale(image, paddingPx = 0, sizeMultiplier = 1) {
+//   // Validation: check if image is valid
+//   if (!image || !image.width || !image.height) {
+//     console.warn('calculateImageScale: Invalid image. Image must be loaded with width and height.');
+//     return null;
+//   }
+  
+//   // Validation: check if window dimensions are valid
+//   if (windowWidth <= 0 || windowHeight <= 0) {
+//     console.warn('calculateImageScale: Invalid window dimensions.');
+//     return null;
+//   }
+  
+//   // Validation: check if padding is reasonable
+//   if (paddingPx < 0) {
+//     console.warn('calculateImageScale: Padding cannot be negative.');
+//     paddingPx = 0;
+//   }
+  
+//   // Validation: check if size multiplier is positive
+//   if (sizeMultiplier <= 0) {
+//     console.warn('calculateImageScale: Size multiplier must be positive.');
+//     return null;
+//   }
+  
+//   // Calculate available space
+//   let availableW = max(0, windowWidth - paddingPx);
+//   let availableH = max(0, windowHeight - paddingPx);
+  
+//   // Avoid division by zero
+//   if (availableW === 0 || availableH === 0) {
+//     console.warn('calculateImageScale: No available space after padding.');
+//     return null;
+//   }
+  
+//   // Calculate scale factor (maintains aspect ratio)
+//   let scale = min(availableW / image.width, availableH / image.height);
+  
+//   // Apply size multiplier and return dimensions
+//   return {
+//     width: image.width * scale * sizeMultiplier,
+//     height: image.height * scale * sizeMultiplier,
+//     scale: scale
+//   };
+// }
+
 function setup() {
   createCanvas(700, 800);
   resizeCanvas(windowWidth, windowHeight);
@@ -52,50 +105,57 @@ function setup() {
   imageMode(CENTER);
   rectMode(CENTER);
   
-  //SETTING INTERACTIONS
+  //placing images & interactions
+  imagePositioner();
+
+  //DUPLICATE CODE
+  // //SETTING INTERACTIONS
   //for interactions,
   // a) make a global variable up top, 
   // b) create new Interaction here in setup and set its position with fractions, 
   // c) show interaction in draw loop, 
   // d) check for hover and clicks in draw and mouseClicked functions respectively
-  interactionBird = new Interaction(imgX,imgY,imgWidth,4,imgHeight,4,300,300);
-  interactionMirror = new Interaction(imgX,imgY,imgWidth,-2.55,imgHeight,-7,350,580);
-  interactionMoon = new Interaction(imgX,imgY,imgWidth,-34,imgHeight,-38,200,200);
 
-  //placing images & interactions
-  imagePositioner();
+  //for interactions,
+  // a) make a global variable up top, 
+  // b) create new Interaction here in setup and set its position with fractions, 
+  // c) show interaction in draw loop, 
+  // d) check for hover and clicks in draw and mouseClicked functions respectively
 
-  //SETTING INTERACTIONS (create after imagePositioner so imgWidth/imgHeight exist)
-  // convert old fract values to relative offsets: relX = -1/fractW, relY = 1/fractH
-  // compute size ratios from the intended pixel sizes so boxes keep the same visual size
-  let birdRelX = -1/4;
+  //SETTING INTERACTIONS (after imagePositioner so imgWidth/imgHeight exist)
+  let birdRelX = -1/3.8;
   let birdRelY = 1/4;
-  let birdWratio = 0.20; //this is a fraction of the image width
-  let birdHratio = 0.20;
+  let birdWratio = 0.17; //this is a fraction of the image width
+  let birdHratio = 0.2;
   interactionBird = new Interaction(imgX, imgY, imgWidth, imgHeight, birdRelX, birdRelY, birdWratio, birdHratio);
 
-  let mirrorRelX = -1 / -2.55; // = +0.392...
-  let mirrorRelY = 1 / -7;     // = -0.1428...
-  let mirrorWratio = 90; //this is in pixels
-  let mirrorHratio = 130;
+  let mirrorRelX = -1 / -2.55;
+  let mirrorRelY = 1 / -7;
+  let mirrorWratio = 0.18;
+  let mirrorHratio = 0.3;
   interactionMirror = new Interaction(imgX, imgY, imgWidth, imgHeight, mirrorRelX, mirrorRelY, mirrorWratio, mirrorHratio);
 
   let moonRelX = -1 / -34; // small positive offset
   let moonRelY = 1 / -38;  // small negative offset
-  let moonWratio = 90;
-  let moonHratio = 90;
+  let moonWratio = 0.11;
+  let moonHratio = 0.11;
   interactionMoon = new Interaction(imgX, imgY, imgWidth, imgHeight, moonRelX, moonRelY, moonWratio, moonHratio);
 
   markVisited('Bedroom');
-  print("Has gone to the Bedroom = "+ hasGoneToBedroom)
-  print("Has gone to the Fish = "+ hasGoneToFish);
-  print("Has gone to the Elephant = "+ hasGoneToElephant);
-  print("Has gone to the Tea Time = "+ hasGoneToTeaTime);
-
-  //DEBUG
-  // print(interactionBird);
-  // print(interactionMoon);
-  // print(interactionMirror);
+  //DEBUG/////
+  if(bugCathcerMode){
+    print("---- SETUP DEBUG INFO START ----");
+    print("User has so far:");
+    print("- gone to the Bedroom = "+ hasGoneToBedroom)
+    print("- gone to the Fish = "+ hasGoneToFish);
+    print("- gone to the Elephant = "+ hasGoneToElephant);
+    print("- gone to the Tea Time = "+ hasGoneToTeaTime);
+    print("Interactions set up as:");
+    print("Bird = "); print(interactionBird);
+    print("Moon = "); print(interactionMoon);
+    print("Mirror = "); print(interactionMirror);
+    print("---- SETUP DEBUG INFO END ----");
+  }
 
   //Moon SetUp
   colorMode(HSB, 360, 100, 100, 100);
@@ -162,7 +222,7 @@ function draw() {
       } // IF ALL PAINTINGS VISITED, SHOW MOON INTERACTION
 
     //DEBUG/////
-    if(debugMode){
+    if(bugCathcerMode){
       push();
         //text settings
         textSize(12);
@@ -204,47 +264,49 @@ function mouseClicked(){
     } 
 
 }
-
-function isMouseOver(somethingX, somethingY, somethingWidth, somethingHeight){
-  return(mouseX > somethingX-somethingWidth/2 && mouseY > somethingY-somethingHeight/2 && mouseX < somethingX+somethingWidth/2 && mouseY < somethingY+somethingHeight/2);
-}
-
 function imagePositioner(){
-    //checks img scale and references it to the others
-    //img — compute scale from available area (subtract padding first) to preserve aspect ratio
-    let availableW = max(0, windowWidth - padding);
-    let availableH = max(0, windowHeight - padding);
-    let Scale = min(availableW / img.width, availableH / img.height);
-    imgWidth = img.width * Scale;
-    imgHeight = img.height * Scale;
-    //right
-    rightWidth = (right.width * Scale)*rightSIZEmult;
-    rightHeight = (right.height * Scale)*rightSIZEmult;
-    //left
-    leftWidth = (left.width * Scale)*leftSIZEmult;
-    leftHeight = (left.height * Scale)*leftSIZEmult;
-
-    // circleSize = map(Scale, 0, 1, 50, 150)
+    // Calculate dimensions for all images
+    let mainImage = imageSizeCalculator(img, imgWidth, imgHeight, padding, 1);
+      if (!mainImage) {
+        console.error('imagePositioner: Failed to calculate main image dimensions.');
+        return;
+      }
+    imgWidth = mainImage.width;
+    imgHeight = mainImage.height;
+    let rightImage = imageSizeCalculator(right, rightWidth, rightHeight, padding, rightSIZEmult);
+      if (!rightImage) {
+        console.error('imagePositioner: Failed to calculate right image dimensions.');
+        return;
+      }
+    rightWidth = rightImage.width;
+    rightHeight = rightImage.height;
+    let leftImage = imageSizeCalculator(left, leftWidth, leftHeight, padding, leftSIZEmult);
+      if (!leftImage) {
+        console.error('imagePositioner: Failed to calculate left image dimensions.');
+        return;
+      }
+    leftWidth = leftImage.width;
+    leftHeight = leftImage.height;
 
   //Starting / Reset Locations
-    //img
+      //img
     imgX = width/2;
     imgY = height/2;
-    //right
-    rightX = width+125; //PROBLEM: 125 is hardcoded to make the elephant roughly equal distance to the fish (from the central image); however when the window has a small height, the elephant dissapears faster than the fish
+      //right
+    rightX = width + rightImage.width/6; //PROBLEM: 125 is hardcoded to make the elephant roughly equal distance to the fish (from the central image); however when the window has a small height, the elephant dissapears faster than the fish
     rightY = height/2;
-    //left
+      //left
     leftX = 0;
     leftY = height/2;
 
     if (typeof interactionBird !== 'undefined' && interactionBird) {
-      interactionBird.resetPos(imgX,imgY,imgWidth,imgHeight, Scale);
+      interactionBird.resetPos(imgX,imgY,imgWidth,imgHeight, mainImage.Scale);
     }
     if (typeof interactionMoon !== 'undefined' && interactionMoon) {
-      interactionMoon.resetPos(imgX,imgY,imgWidth,imgHeight, Scale);
+      interactionMoon.resetPos(imgX,imgY,imgWidth,imgHeight, mainImage.Scale);
     }
     if (typeof interactionMirror !== 'undefined' && interactionMirror) {
-      interactionMirror.resetPos(imgX,imgY,imgWidth,imgHeight, Scale);
+      interactionMirror.resetPos(imgX,imgY,imgWidth,imgHeight, mainImage.Scale);
     }
 
 }
