@@ -151,12 +151,15 @@ function draw() {
     //SHOW INTERACTIONS
     interactionBird.show();
     interactionMirror.show();
-    // if (hasGoneToBedroom 
-    //   && hasGoneToFish 
-    //   && hasGoneToElephant 
-    //   && hasGoneToTeaTime)
-    //   {interactionMoon.show();} // IF ALL PAINTINGS VISITED, SHOW MOON INTERACTION
-
+    if (hasGoneToBedroom 
+      && hasGoneToFish 
+      && hasGoneToElephant 
+      && hasGoneToTeaTime)
+      {interactionMoon.show();
+        //Moon Draw
+        imageNeon(interactionMoon.x, interactionMoon.y, interactionMoon.width, interactionMoon.height, color(332, 58, 91, 100));
+        }
+      } // IF ALL PAINTINGS VISITED, SHOW MOON INTERACTION
 
     //DEBUG/////
     if(debugMode){
@@ -169,11 +172,6 @@ function draw() {
       pop();
     }
     /////////
-
-      
-    //Moon Draw
-    imageNeon(interactionMoon.x, interactionMoon.y, interactionMoon.width, interactionMoon.height, color(332, 58, 91, 100));
-    }
 }
 
 function windowResized() { //window resizer
@@ -269,10 +267,12 @@ function imageNeon(imgX, imgY, width, height, glowColor) {
   image(moon, imgX, imgY, width, height);
   tint(0, 0, 100, 100);
 }
+
 function glow(glowColor, blurriness) {
   drawingContext.shadowColor = glowColor;
   drawingContext.shadowBlur = blurriness;
 }
+
 function flickering() {
   offset += 0.08;
   let n = noise(offset);
