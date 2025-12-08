@@ -6,142 +6,173 @@ let nextPage = "Portrait.html";
 let defaultBrightness = 200;
 let defaultOpacity = 100;
 
+//GRAPHIC BUFFERS
+let mainGraphics;
+  let mainGraphicsON = true;
+let interactionGraphics;
+  let interactionGraphicsON = false;
+//IMAGES
+//main 3 image variables
 let img;
   let imgX;
   let imgY;
   let imgWidth;
   let imgHeight;
-let padding = 100;
+    let padding = 100;
 let right;
-    let rightX;
-    let rightY;
-    let rightWidth;
-    let rightHeight;
-        let rightSIZEmult = 0.7; 
-    let rightBrightness = defaultBrightness;
-    let rightOpacity = defaultOpacity;
+  let rightX;
+  let rightY;
+  let rightWidth;
+  let rightHeight;
+      let rightSIZEmult = 0.7; 
+  let rightBrightness = defaultBrightness;
+  let rightOpacity = defaultOpacity;
 let left;
-    let leftX;
-    let leftY;
-    let leftWidth;
-    let leftHeight;
-        let leftSIZEmult = 0.6; 
-    let leftBrightness = defaultBrightness;
-    let leftOpacity = defaultOpacity;
+  let leftX;
+  let leftY;
+  let leftWidth;
+  let leftHeight;
+      let leftSIZEmult = 0.6; 
+  let leftBrightness = defaultBrightness;
+  let leftOpacity = defaultOpacity;
 
-//interactions
+//INTERACTIONS
+// a) make a global variable here, 
+// b) create new Interaction here in setup and set its position with fractions, 
+// c) show interaction in draw loop, 
+// d) check for hover and clicks in draw and mouseClicked functions respectively
 let interactionBird;
+let interactionBird2;
+let interactionBird3;
 let interactionMoon;
 let interactionMirror;
-
+let interactionBath;
+let interactionTap;
+  //interaction images
 let moon;
-let offset = 0.0;
+let bird;
+let bird2;
+let bird3;
+let mirror;
+let bath;
+let tap;
+//TOOL 
+// Interaction Placement UI (shared wrapper from scr_global.js)
+let placementUI = null;
+let placementModeActive = false;
 
-//load image
+///
+//PRELOAD
 function preload(){ //has to be preloaded :(
-  moon = loadImage('Assets/moon.png');
-  img = loadImage('Assets/Bedroom.JPG');
+  img = loadImage('Assets/Bedroom/Bedroom.JPG');
   right = loadImage('Assets/Elephant.jpg');
   left = loadImage('Assets/Fish.JPG');
+
+  //interaction images
+  moon = loadImage('Assets/Bedroom/Moon.png');
+  bird = loadImage('Assets/Bedroom/Bird1.png');
+  bird2 = loadImage('Assets/Bedroom/Bird2.png');
+  bird3 = loadImage('Assets/Bedroom/Bird3.png');
+  mirror = loadImage('Assets/Bedroom/Mirror.png');
+  bath = loadImage('Assets/Bedroom/bath.png');
+  tap = loadImage('Assets/Bedroom/tap.png');
 }
 
-// /**
-//  * Calculates responsive image dimensions while maintaining aspect ratio
-//  * @param {p5.Image} image - The image to scale (must be loaded)
-//  * @param {number} paddingPx - Padding to subtract from available space (default: 0)
-//  * @param {number} sizeMultiplier - Optional multiplier for final dimensions (default: 1)
-//  * @returns {Object} Object with width and height properties, or null if validation fails
-//  */
-// function calculateImageScale(image, paddingPx = 0, sizeMultiplier = 1) {
-//   // Validation: check if image is valid
-//   if (!image || !image.width || !image.height) {
-//     console.warn('calculateImageScale: Invalid image. Image must be loaded with width and height.');
-//     return null;
-//   }
-  
-//   // Validation: check if window dimensions are valid
-//   if (windowWidth <= 0 || windowHeight <= 0) {
-//     console.warn('calculateImageScale: Invalid window dimensions.');
-//     return null;
-//   }
-  
-//   // Validation: check if padding is reasonable
-//   if (paddingPx < 0) {
-//     console.warn('calculateImageScale: Padding cannot be negative.');
-//     paddingPx = 0;
-//   }
-  
-//   // Validation: check if size multiplier is positive
-//   if (sizeMultiplier <= 0) {
-//     console.warn('calculateImageScale: Size multiplier must be positive.');
-//     return null;
-//   }
-  
-//   // Calculate available space
-//   let availableW = max(0, windowWidth - paddingPx);
-//   let availableH = max(0, windowHeight - paddingPx);
-  
-//   // Avoid division by zero
-//   if (availableW === 0 || availableH === 0) {
-//     console.warn('calculateImageScale: No available space after padding.');
-//     return null;
-//   }
-  
-//   // Calculate scale factor (maintains aspect ratio)
-//   let scale = min(availableW / image.width, availableH / image.height);
-  
-//   // Apply size multiplier and return dimensions
-//   return {
-//     width: image.width * scale * sizeMultiplier,
-//     height: image.height * scale * sizeMultiplier,
-//     scale: scale
-//   };
-// }
-
+///
+//SETUP
 function setup() {
-  createCanvas(700, 800);
+  createCanvas(1000, 800);
   resizeCanvas(windowWidth, windowHeight);
 
+  //GRAPHIC BUFFERS
+  mainGraphics = createGraphics(width, height);
+  // match the display density to avoid unexpected internal scaling
+  mainGraphics.pixelDensity(displayDensity());
+  // use CENTER-based drawing inside buffers so coordinates match the main canvas
+  mainGraphics.imageMode(CENTER);
+  mainGraphics.rectMode(CENTER);
+  mainGraphics.clear();
+  interactionGraphics = createGraphics(width, height);
+  interactionGraphics.pixelDensity(displayDensity());
+  interactionGraphics.imageMode(CENTER);
+  interactionGraphics.rectMode(CENTER);
+  interactionGraphics.clear();
+
+  //settings
   imageMode(CENTER);
   rectMode(CENTER);
   
   //placing images & interactions
   imagePositioner();
 
-  //DUPLICATE CODE
-  // //SETTING INTERACTIONS
-  //for interactions,
-  // a) make a global variable up top, 
-  // b) create new Interaction here in setup and set its position with fractions, 
-  // c) show interaction in draw loop, 
-  // d) check for hover and clicks in draw and mouseClicked functions respectively
-
-  //for interactions,
-  // a) make a global variable up top, 
-  // b) create new Interaction here in setup and set its position with fractions, 
-  // c) show interaction in draw loop, 
-  // d) check for hover and clicks in draw and mouseClicked functions respectively
-
   //SETTING INTERACTIONS (after imagePositioner so imgWidth/imgHeight exist)
+    //bird 1
   let birdRelX = -1/3.8;
   let birdRelY = 1/4;
   let birdWratio = 0.17; //this is a fraction of the image width
   let birdHratio = 0.2;
-  interactionBird = new Interaction(imgX, imgY, imgWidth, imgHeight, birdRelX, birdRelY, birdWratio, birdHratio);
-
+  interactionBird = new Interaction(imgX, imgY, imgWidth, imgHeight, birdRelX, birdRelY, birdWratio, birdHratio, bird);
+    //bird 2
+  let bird2RelX = -0.133;
+  let bird2RelY = 0.140;
+  let bird2Wratio = 0.073;
+  let bird2Hratio = 0.057;
+  interactionBird2 = new Interaction(imgX, imgY, imgWidth, imgHeight, bird2RelX, bird2RelY, bird2Wratio, bird2Hratio, bird2);
+    //bird 3
+  let bird3RelX = -0.029; 
+  let bird3RelY = 0.124;
+  let bird3Wratio = 0.057; 
+  let bird3Hratio = 0.047;
+  interactionBird3 = new Interaction(imgX, imgY, imgWidth, imgHeight, bird3RelX, bird3RelY, bird3Wratio, bird3Hratio, bird3);
+    //mirror
   let mirrorRelX = -1 / -2.55;
   let mirrorRelY = 1 / -7;
   let mirrorWratio = 0.18;
-  let mirrorHratio = 0.3;
-  interactionMirror = new Interaction(imgX, imgY, imgWidth, imgHeight, mirrorRelX, mirrorRelY, mirrorWratio, mirrorHratio);
-
-  let moonRelX = -1 / -34; // small positive offset
-  let moonRelY = 1 / -38;  // small negative offset
+  let mirrorHratio = 0.28;
+  interactionMirror = new Interaction(imgX, imgY, imgWidth, imgHeight, mirrorRelX, mirrorRelY, mirrorWratio, mirrorHratio, mirror);
+    //moon
+  let moonRelX = -1 / -34; 
+  let moonRelY = 1 / -38;  
   let moonWratio = 0.11;
   let moonHratio = 0.11;
-  interactionMoon = new Interaction(imgX, imgY, imgWidth, imgHeight, moonRelX, moonRelY, moonWratio, moonHratio);
+  interactionMoon = new Interaction(imgX, imgY, imgWidth, imgHeight, moonRelX, moonRelY, moonWratio, moonHratio, moon);
+    //bath
+  let bathRelX = -0.251 
+  let bathRelY = -0.281;  
+  let bathWratio = 0.15;
+  let bathHratio = 0.15;
+  interactionBath = new Interaction(imgX, imgY, imgWidth, imgHeight, bathRelX, bathRelY, bathWratio, bathHratio, bath);
+    //tap
+  let tapRelX =  -0.388; 
+  let tapRelY = -0.116;  
+  let tapWratio = 0.052;
+  let tapHratio = 0.075;
+  interactionTap = new Interaction(imgX, imgY, imgWidth, imgHeight, tapRelX, tapRelY, tapWratio, tapHratio, tap);
 
+  //GRAPHICS BUFFER
+  //Adding images for first draw
+  mainGraphics.push();
+  mainGraphics.tint(leftBrightness,leftOpacity);
+  mainGraphics.image(left,leftX,leftY,leftWidth,leftHeight);
+  mainGraphics.pop();
+  mainGraphics.push();
+  mainGraphics.tint(rightBrightness,rightOpacity);
+  mainGraphics.image(right,rightX,rightY,rightWidth,rightHeight);
+  mainGraphics.pop();
+  mainGraphics.image(img,imgX,imgY,imgWidth,imgHeight);
+  
+  // Draw interaction images into the interactionGraphics buffer
+  interactionBird.show(imgX, imgY, imgWidth, imgHeight, interactionGraphics);
+  interactionMirror.show(imgX, imgY, imgWidth, imgHeight, interactionGraphics);
+  interactionBird2.show(imgX, imgY, imgWidth, imgHeight, interactionGraphics);
+  interactionBird3.show(imgX, imgY, imgWidth, imgHeight, interactionGraphics);
+  interactionBath.show(imgX, imgY, imgWidth, imgHeight, interactionGraphics);
+  interactionTap.show(imgX, imgY, imgWidth, imgHeight, interactionGraphics);
+
+
+  //Mark progress
   markVisited('Bedroom');
+
   //DEBUG/////
   if(bugCathcerMode){
     print("---- SETUP DEBUG INFO START ----");
@@ -155,6 +186,12 @@ function setup() {
     print("Moon = "); print(interactionMoon);
     print("Mirror = "); print(interactionMirror);
     print("---- SETUP DEBUG INFO END ----");
+    //TOOL
+    // initialize shared interaction placement UI
+    if (typeof createPlacementUI === 'function') {
+      placementUI = createPlacementUI();
+      placementUI.init(imgX, imgY, imgWidth, imgHeight);
+    }
   }
 
   //Moon SetUp
@@ -171,55 +208,60 @@ function draw() {
   
    //DRAWING IMAGES
     //right
-   push();
-    tint(rightBrightness,rightOpacity);
-    image(right,rightX,rightY,rightWidth,rightHeight); 
-   pop();
-    //left
-   push();
-    tint(leftBrightness,leftOpacity);
-    image(left,leftX,leftY,leftWidth,leftHeight); 
-   pop();
-    //img
-   image(img, imgX, imgY, imgWidth, imgHeight); 
+  //  push();
+  //   tint(rightBrightness,rightOpacity);
+  //   image(right,rightX,rightY,rightWidth,rightHeight); 
+  //  pop();
+  //   //left
+  //  push();
+  //   tint(leftBrightness,leftOpacity);
+  //   image(left,leftX,leftY,leftWidth,leftHeight); 
+  //  pop();
+  //   //img
+  //  image(img, imgX, imgY, imgWidth, imgHeight); 
 
-    //CURSOR CHANGE //NOTE: i'm sure there's a better way of structuring this
-    if (!isMouseOver(leftX,leftY,leftWidth,leftHeight) && !isMouseOver(rightX,rightY,rightWidth,rightHeight)){ //left
-      cursor(ARROW);
-      leftBrightness = defaultBrightness;
-      leftOpacity = defaultOpacity;
-      rightBrightness = defaultBrightness;
-      rightOpacity = defaultOpacity;
-    } else if (isMouseOver(rightX,rightY,rightWidth,rightHeight)){ //right
-            rightBrightness = 255;
-            rightOpacity = 225;
-            cursor(HAND);
-        }else if (isMouseOver(leftX,leftY,leftWidth,leftHeight)){ //left
-            leftBrightness = 255;
-            leftOpacity = 225;
-            cursor(HAND);
-        }
+  if (mainGraphicsON){
+    // draw the buffer centered on the canvas — main canvas uses imageMode(CENTER)
+    image(mainGraphics, width/2, height/2, width, height);
+  }
+  if (interactionGraphicsON){
+    image(interactionGraphics, width/2, height/2, width, height);
+  }
     
     if (isMouseOver(imgX,imgY,imgWidth,imgHeight)){
-          cursor(ARROW);
-          leftBrightness = defaultBrightness;
-          leftOpacity = defaultOpacity;
-          rightBrightness = defaultBrightness;
-          rightOpacity = defaultOpacity;
-
-
-    //SHOW INTERACTIONS
-    interactionBird.show();
-    interactionMirror.show();
-    if (hasGoneToBedroom 
-      && hasGoneToFish 
-      && hasGoneToElephant 
-      && hasGoneToTeaTime)
-      {interactionMoon.show();
-        //Moon Draw
-        imageNeon(interactionMoon.x, interactionMoon.y, interactionMoon.width, interactionMoon.height, color(332, 58, 91, 100));
+        cursor(ARROW);
+        interactionGraphicsON = true;
+        //SHOW INTERACTIONS
+      // interactionBird.show(imgX, imgY, imgWidth, imgHeight);
+      // interactionMirror.show(imgX, imgY, imgWidth, imgHeight); 
+      // interactionBird2.show(imgX, imgY, imgWidth, imgHeight);
+      // interactionBird3.show(imgX, imgY, imgWidth, imgHeight);
+      // interactionBath.show(imgX, imgY, imgWidth, imgHeight);
+      // interactionTap.show(imgX, imgY, imgWidth, imgHeight);
+      // if (hasGoneToBedroom && hasGoneToFish && hasGoneToElephant && hasGoneToTeaTime)// IF ALL PAINTINGS VISITED, SHOW MOON INTERACTION
+      //   {
+      //     interactionMoon.show();
+      //   }
+      } else{
+        interactionGraphicsON = false;
+        if (isMouseOver(rightX,rightY,rightWidth,rightHeight)){
+        rightImageHover();
+        } 
+        if (isMouseOver(leftX,leftY,leftWidth,leftHeight)){
+          leftImageHover();
         }
-      } // IF ALL PAINTINGS VISITED, SHOW MOON INTERACTION
+      }
+    if (!isMouseOver(rightX,rightY,rightWidth,rightHeight) && 
+        !isMouseOver(leftX,leftY,leftWidth,leftHeight) &&
+        (leftOpacity != defaultOpacity || rightOpacity != defaultOpacity )){
+        leftBrightness = defaultBrightness;
+        leftOpacity = defaultOpacity;
+        rightBrightness = defaultBrightness;
+        rightOpacity = defaultOpacity;
+        graphicsBufferClear();
+        graphicsBufferFill();
+        cursor(ARROW);
+        }
 
     //DEBUG/////
     if(bugCathcerMode){
@@ -230,16 +272,51 @@ function draw() {
         //text - FPS
         text(frameRate(), 10, 10);
       pop();
+      // Placement UI instructions & preview
+      if (placementUI && placementUI.isActive()) {
+        push();
+        fill(255);
+        textSize(14);
+        textAlign(LEFT, TOP);
+        text("Placement mode: click to place top-left, then click to set size. Press 'P' to cancel.", 10, 30);
+        pop();
+        placementUI.updateAndDraw();
+      }
     }
     /////////
 }
 
 function windowResized() { //window resizer
+  // Resize main canvas and recompute layout
   resizeCanvas(windowWidth, windowHeight);
   imagePositioner();
+
+  // Recreate graphic buffers at the new canvas size so their internal
+  // resolution and coordinate system match the main canvas.
+  mainGraphics = createGraphics(width, height);
+  mainGraphics.pixelDensity(displayDensity());
+  mainGraphics.imageMode(CENTER);
+  mainGraphics.rectMode(CENTER);
+  mainGraphics.clear();
+
+  interactionGraphics = createGraphics(width, height);
+  interactionGraphics.pixelDensity(displayDensity());
+  interactionGraphics.imageMode(CENTER);
+  interactionGraphics.rectMode(CENTER);
+  interactionGraphics.clear();
+
+  // refill cached content
+  graphicsBufferFill();
 }
 
 function mouseClicked(){
+  if (bugCathcerMode){
+    // If placement UI is active, forward click and skip normal navigation
+    if (placementUI && placementUI.isActive()) {
+      placementUI.handleClick(mouseX, mouseY);
+      return;
+    }
+  }
     //check where to go based on click
     //NOTE: this is currently clunky since the first if statement is already being tested in the draw loop
     if(!isMouseOver(imgX,imgY,imgWidth,imgHeight)){
@@ -266,6 +343,7 @@ function mouseClicked(){
 }
 function imagePositioner(){
     // Calculate dimensions for all images
+      //main
     let mainImage = imageSizeCalculator(img, imgWidth, imgHeight, padding, 1);
       if (!mainImage) {
         console.error('imagePositioner: Failed to calculate main image dimensions.');
@@ -273,13 +351,7 @@ function imagePositioner(){
       }
     imgWidth = mainImage.width;
     imgHeight = mainImage.height;
-    let rightImage = imageSizeCalculator(right, rightWidth, rightHeight, padding, rightSIZEmult);
-      if (!rightImage) {
-        console.error('imagePositioner: Failed to calculate right image dimensions.');
-        return;
-      }
-    rightWidth = rightImage.width;
-    rightHeight = rightImage.height;
+      //left
     let leftImage = imageSizeCalculator(left, leftWidth, leftHeight, padding, leftSIZEmult);
       if (!leftImage) {
         console.error('imagePositioner: Failed to calculate left image dimensions.');
@@ -287,6 +359,14 @@ function imagePositioner(){
       }
     leftWidth = leftImage.width;
     leftHeight = leftImage.height;
+      //right
+    let rightImage = imageSizeCalculator(right, rightWidth, rightHeight, padding, rightSIZEmult);
+      if (!rightImage) {
+        console.error('imagePositioner: Failed to calculate right image dimensions.');
+        return;
+      }
+    rightWidth = rightImage.width;
+    rightHeight = rightImage.height;
 
   //Starting / Reset Locations
       //img
@@ -309,35 +389,52 @@ function imagePositioner(){
       interactionMirror.resetPos(imgX,imgY,imgWidth,imgHeight, mainImage.Scale);
     }
 
+    if (bugCathcerMode){
+      // refresh placement UI controller with new geometry
+      if (placementUI) placementUI.refresh(imgX, imgY, imgWidth, imgHeight);
+    }
+
 }
 
-//Moon effect
-function imageNeon(imgX, imgY, width, height, glowColor) {
-  // tint(h, s, b, transparency) overlaid on image
-  tint(0, 0, 40, 100);
-  glow(glowColor, 0);
-  image(moon, imgX, imgY, width, height);
-  tint(0, 0, 100, flickering());
-  glow(glowColor, 160);
-  image(moon, imgX, imgY, width, height);
-  image(moon, imgX, imgY, width, height);
-  glow(glowColor, 80);
-  image(moon, imgX, imgY, width, height);
-  image(moon, imgX, imgY, width, height);
-  glow(glowColor, 12);
-  image(moon, imgX, imgY, width, height);
-  image(moon, imgX, imgY, width, height);
-  tint(0, 0, 100, 100);
+// Toggle placement mode with 'P'
+function keyPressed() {
+  if (bugCathcerMode){
+    if (key === 'p' || key === 'P') {
+      if (placementUI) {
+        placementModeActive = placementUI.toggle();
+        print('Placement mode', placementModeActive ? 'ON' : 'OFF');
+      }
+    }
+  }
 }
 
-function glow(glowColor, blurriness) {
-  drawingContext.shadowColor = glowColor;
-  drawingContext.shadowBlur = blurriness;
+function leftImageHover(){
+  graphicsBufferClear();
+  cursor(HAND);
+  leftBrightness = 255; leftOpacity = 255;
+  graphicsBufferFill();
 }
 
-function flickering() {
-  offset += 0.08;
-  let n = noise(offset);
-  if (n < 0.30) return 0;
-  else return 100;
+function rightImageHover(){
+  graphicsBufferClear();
+  cursor(HAND);
+  rightBrightness = 255; rightOpacity = 255;
+  graphicsBufferFill();
+}
+
+function graphicsBufferClear(){
+  mainGraphics.clear();
+  interactionGraphics.clear();
+}
+
+function graphicsBufferFill(){
+  mainGraphics.push();
+  mainGraphics.tint(leftBrightness,leftOpacity);
+  mainGraphics.image(left,leftX,leftY,leftWidth,leftHeight);
+  mainGraphics.pop();
+  mainGraphics.push();
+  mainGraphics.tint(rightBrightness,rightOpacity);
+  mainGraphics.image(right,rightX,rightY,rightWidth,rightHeight);
+  mainGraphics.pop();
+  mainGraphics.image(img,imgX,imgY,imgWidth,imgHeight);
 }
