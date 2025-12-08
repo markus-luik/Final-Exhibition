@@ -4,12 +4,13 @@ let imgCrowd;
   let YCrowd;
   let WidthCrowd;
   let HeightCrowd;
+let Crowd;
 let imgTree;
   let XTree;
   let YTree;
   let WidthTree;
   let HeightTree;
-let padding = 0;
+let padding = 10;
 let movement_freedom_px = 120;
 let mov_speed = 2;
 let size_factor = 0.90;
@@ -21,9 +22,14 @@ let bgG = startingColor[1];
 let bgB = startingColor[2];
 let opacity = 20;
 
+// Placement UI (shared wrapper from scr_global.js)
+let placementUI = null;
+let placementModeActive = false;
+
 function preload(){ //images preload
   imgCrowd = loadImage('Assets/CrowdTree_Crowd.png');
   imgTree = loadImage('Assets/CrowdTree_Tree.png');
+  Crowd = loadImage('Assets/crowdCut.png')
 }
 
 function setup() {
@@ -50,6 +56,16 @@ function setup() {
     //tree
       XTree = width/2;
       YTree = YCrowd - WidthTree;
+
+  ///DEBUG
+  if(bugCathcerMode){
+    // initialize shared placement UI
+    if (typeof createPlacementUI === 'function') {
+      placementUI = createPlacementUI();
+      placementUI.init(XTree, YTree, WidthCrowd, HeightCrowd);
+      if (placementUI) {placementUI.refresh(XTree, YTree, WidthTree, HeightTree);}
+    }
+  }
 }
 
 function draw() {
@@ -65,9 +81,26 @@ function draw() {
     bgG = map(YTree, height/20, height/2, 0, 255);
     bgB = map(YTree, height/20, height/2, 255, 0);
   }
+  
+  
+  //Crowd
+  push();
+    tint(255, 15);
+    image(Crowd,XCrowd,YCrowd-300,WidthCrowd*1.5,HeightCrowd*3);
+  pop();
+  image(imgCrowd, XCrowd, YCrowd, WidthCrowd, HeightCrowd);
+  //Tree
+  image(imgTree, XTree, YTree, WidthTree, HeightTree);
+  
+    //CURSOR CHANGE
+    if (isMouseOverTree()) { 
+      cursor(HAND); 
+    }else{
+      cursor(ARROW);
+    }
 
     //DEBUG/////
-      if(debugMode){
+    if(bugCathcerMode){
         push();
           //text settings
           textSize(12);
@@ -83,24 +116,35 @@ function draw() {
           text("bgG = " + bgG, 10, 105);
           text("bgB = " + bgB, 10, 120);
         pop();
+
+        //fps
+        push();
+          //backing
+          fill(0);
+          rect(width-155, 0, 120, 15);
+          //text settings
+          textSize(12);
+          fill(255);
+          //text - FPS
+          text(frameRate(), width-150, 10);
+        pop();
+
+        // Placement UI instructions & preview
+        if (placementUI && placementUI.isActive()) {
+          push();
+          fill(255);
+          textSize(14);
+          textAlign(LEFT, TOP);
+          text("Placement mode: click to place top-left, then click to set size. Press 'P' to cancel.", 10, 30);
+          pop();
+          placementUI.updateAndDraw();
+        }
       }
     /////////
-  
-  
-  //Crowd
-  image(imgCrowd, XCrowd, YCrowd, WidthCrowd, HeightCrowd);
-  //Tree
-  image(imgTree, XTree, YTree, WidthTree, HeightTree);
-  
-    //CURSOR CHANGE
-    if (isMouseOverTree()) { 
-      cursor(HAND); 
-    }else{
-      cursor(ARROW);
-    }
 
-  //moving
-  if (focused === true){ //checks if browser is focused
+
+    //moving
+    if (focused){ //checks if browser is focused
     //UP
       if (mouseY < 0+movement_freedom_px){
         if (YTree - HeightTree / 2 - mov_speed > 0) {
@@ -143,7 +187,6 @@ function draw() {
         }
     }
   }
-
 }
 
 function windowResized() { //window resizer
@@ -166,15 +209,39 @@ function windowResized() { //window resizer
       YCrowd = height/2;
     //tree
       XTree = width/2;
-      YTree = YCrowd - WidthTree;
+      YTree = YCrowd - WidthTree*2;
+
+    if (bugCathcerMode){
+      // refresh placement UI controller with new geometry
+      if (placementUI) placementUI.refresh(XTree, YTree, WidthTree, HeightTree);
+    }
 }
 
 function mouseClicked(){
   if( isMouseOverTree()){
     window.location.href = nextPage;
   }
+  if (bugCathcerMode){
+    // If placement UI is active, forward click and skip normal navigation
+    if (placementUI && placementUI.isActive()) {
+      placementUI.handleClick(mouseX, mouseY);
+      return;
+    }
+  }
 }
 
 function isMouseOverTree(){
   return(mouseX > XTree-WidthTree/2 && mouseY > YTree-HeightTree/2 && mouseX < XTree+WidthTree/2 && mouseY < YTree+HeightTree/2);
+}
+
+// Toggle placement mode with 'P'
+function keyPressed() {
+  if (bugCathcerMode){
+    if (key === 'p' || key === 'P') {
+      if (placementUI) {
+        placementModeActive = placementUI.toggle();
+        print('Placement mode', placementModeActive ? 'ON' : 'OFF');
+      }
+    }
+  }
 }

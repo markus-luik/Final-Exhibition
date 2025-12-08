@@ -13,14 +13,14 @@ let img;
   let imgY;
   let imgWidth;
   let imgHeight;
-        let imgSIZEmult = 1.3;
+        let imgSIZEmult = 1;
 let padding = 50;
 let right;
     let rightX;
     let rightY;
     let rightWidth;
     let rightHeight;
-        let rightSIZEmult = 0.3; 
+        let rightSIZEmult = 0.8; 
     let rightBrightness = defaultBrightness;
     let rightOpacity = defaultOpacity;
 let left;
@@ -122,26 +122,52 @@ function windowResized() { //window resizer (p5.js)
 }
 
 function imagePositioner(){
-    //checks img scale and references it to the others
-    //img
-    let Scale = min(windowWidth/img.width, windowHeight/ img.height);
-    imgWidth = (img.width * Scale) * imgSIZEmult - padding;
-    imgHeight =  (img.height * Scale) * imgSIZEmult - padding;
-    //right
-    rightWidth = (right.width * Scale)*rightSIZEmult;
-    rightHeight = (right.height * Scale)*rightSIZEmult;
-    //left
-    leftWidth = (left.width * Scale)*leftSIZEmult;
-    leftHeight = (left.height * Scale)*leftSIZEmult;
+    // //checks img scale and references it to the others
+    // //img
+    // let Scale = min(windowWidth/img.width, windowHeight/ img.height);
+    // imgWidth = (img.width * Scale) * imgSIZEmult - padding;
+    // imgHeight =  (img.height * Scale) * imgSIZEmult - padding;
+    // //right
+    // rightWidth = (right.width * Scale)*rightSIZEmult;
+    // rightHeight = (right.height * Scale)*rightSIZEmult;
+    // //left
+    // leftWidth = (left.width * Scale)*leftSIZEmult;
+    // leftHeight = (left.height * Scale)*leftSIZEmult;
+
+    // Calculate dimensions for all images
+      //main
+    let mainImage = imageSizeCalculator(img, imgWidth, imgHeight, padding, 1);
+      if (!mainImage) {
+        console.error('imagePositioner: Failed to calculate main image dimensions.');
+        return;
+      }
+    imgWidth = mainImage.width;
+    imgHeight = mainImage.height;
+      //left
+    let leftImage = imageSizeCalculator(left, leftWidth, leftHeight, padding, leftSIZEmult);
+      if (!leftImage) {
+        console.error('imagePositioner: Failed to calculate left image dimensions.');
+        return;
+      }
+    leftWidth = leftImage.width;
+    leftHeight = leftImage.height;
+      //right
+    let rightImage = imageSizeCalculator(right, rightWidth, rightHeight, padding, rightSIZEmult);
+      if (!rightImage) {
+        console.error('imagePositioner: Failed to calculate right image dimensions.');
+        return;
+      }
+    rightWidth = rightImage.width;
+    rightHeight = rightImage.height;
 
   //Starting / Reset Locations
     //img [imgXY: Coordinate of img Center]
     imgX = width/2;
     imgY = height/2;
     //right
-    rightX = width+150; //PROBLEM: 125 is hardcoded to make the elephant roughly equal distance to the fish (from the central image); however when the window has a small height, the elephant dissapears faster than the fish
+    rightX = width+rightImage.width/4; //PROBLEM: 125 is hardcoded to make the elephant roughly equal distance to the fish (from the central image); however when the window has a small height, the elephant dissapears faster than the fish
     rightY = height/2;
     //left
-    leftX = -250;
+    leftX = 0 - leftImage.width/3;
     leftY = height/2;
 }

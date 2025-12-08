@@ -99,7 +99,7 @@ function draw() {
   }
   
   // Change cursor when mouse is over the main image
-  if (isMouseOverImg()) { 
+  if (isMouseOver(imgX, imgY, imgWidth, imgHeight)) { 
     cursor('Assets/bird32.png'); // Custom bird cursor
   } else {
     cursor(ARROW); // Default arrow cursor
@@ -133,10 +133,7 @@ function windowResized() {
   imgHeight = img.height * Scale;
   
   // Resize closeup images proportionally to the new scale
-  img_closeupLeftWidth = img_closeupLeft.width * Scale;
-  img_closeupLeftHeight = img_closeupLeft.height * Scale;
-  img_closeupRightWidth = img_closeupRight.width * Scale;
-  img_closeupRightHeight = img_closeupRight.height * Scale;
+
   
   // Recenter all images on the new window
   imgX = width/2;
@@ -177,4 +174,38 @@ function isMouseOverImg(){
 }
 function mouseDragged() {
   stars.push(new Star(mouseX, mouseY, 0, 0));
+}
+function imagePositioner(){
+    // Calculate dimensions for all images
+      //main
+    let mainImage = imageSizeCalculator(img, imgWidth, imgHeight, padding, 1);
+      if (!mainImage) {
+        console.error('imagePositioner: Failed to calculate main image dimensions.');
+        return;
+      }
+    imgWidth = mainImage.width;
+    imgHeight = mainImage.height;
+
+    //closeups
+    img_closeupLeftWidth = img_closeupLeft.width * mainImage.Scale;
+    img_closeupLeftHeight = img_closeupLeft.height * mainImage.Scale;
+    img_closeupRightWidth = img_closeupRight.width * mainImage.Scale;
+    img_closeupRightHeight = img_closeupRight.height * mainImage.Scale;
+
+  //Starting / Reset Locations
+      //img
+    imgX = width/2;
+    imgY = height/2;
+      //right
+    rightX = width + rightImage.width/6; //PROBLEM: 125 is hardcoded to make the elephant roughly equal distance to the fish (from the central image); however when the window has a small height, the elephant dissapears faster than the fish
+    rightY = height/2;
+      //left
+    leftX = 0;
+    leftY = height/2;
+    //closeups
+    img_closeupLeftX = width/2;
+    img_closeupLeftY = height/2;
+    img_closeupRightX = width/2;
+    img_closeupRightY = height/2;
+
 }
