@@ -36,7 +36,7 @@ function setup() {
   //sets width & height
     //NOTE: Crowd scaling is based on tree scaling
     //tree
-      let ScaleTree = min(windowWidth/imgTree.width, windowHeight/ imgTree.height); //determines ratio/scale of image
+    let ScaleTree = min(windowWidth/imgTree.width, windowHeight/ imgTree.height); //determines ratio/scale of image
     WidthTree = (imgTree.width * ScaleTree - padding) * size_factor;
     HeightTree =  (imgTree.height * ScaleTree - padding) * size_factor;
     //crowd

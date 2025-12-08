@@ -41,6 +41,7 @@ function preload(){ //has to be preloaded :(
 
 function setup() { 
   createCanvas(700, 800);
+  angleMode(DEGREES);
   resizeCanvas(windowWidth, windowHeight); //-1 to prevent scroll bars
   
   imageMode(CENTER);
@@ -91,6 +92,8 @@ function draw() { //(run indefinitely)
             rightBrightness = defaultBrightness; 
             rightOpacity = defaultOpacity;
     }
+
+
 
 }
 

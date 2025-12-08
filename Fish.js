@@ -145,7 +145,7 @@ function draw() { //(run indefinitely)
             leftBrightness = defaultBrightness; 
             leftOpacity = defaultOpacity;}
     }else{
-            cursor('Assets/bird32.png'); //currently only run once
+            cursor('Assets/bird32.png');
             leftBrightness = defaultBrightness; 
             leftOpacity = defaultOpacity;
             rightBrightness = defaultBrightness; 

@@ -1,4 +1,5 @@
 let nextPage = "CrowdTree.html";
+let stars = [];
 
 // Main portrait image
 let img;
@@ -34,6 +35,7 @@ function preload(){ //has to be preloaded :(
   img_closeupLeft = loadImage('Assets/FinalPortrait_closeup_blue.jpg');
   img_closeupRight = loadImage('Assets/FinalPortrait_closeup_red.JPG');
 }
+
 
 function setup() {
   createCanvas(700, 800);
@@ -74,7 +76,7 @@ function setup() {
   print(interactionLeft);
   print(interactionRight); 
 
-   print("Setup complete");
+  print("Setup complete");
   print("imgX: "+imgX+ ", imgY: " + imgY, ", imgWidth: " + imgWidth + ", imgHeight: " + imgHeight);
   print("interactionLeft pos: x=" + interactionLeft.x + ", y=" + interactionLeft.y + ", width=" + interactionLeft.width + ", height=" + interactionLeft.height);
   print("interactionRight pos: x=" + interactionRight.x + ", y=" + interactionRight.y + ", width=" + interactionRight.width + ", height=" + interactionRight.height);
@@ -82,7 +84,7 @@ function setup() {
 
 function draw() {
   background(255); // Clear the canvas with white background
-  
+
   // Draw the main portrait image centered on screen
   image(img, imgX, imgY, imgWidth, imgHeight);
   
@@ -107,6 +109,16 @@ function draw() {
   // show() draws the boxes and changes their color when hovered
   interactionLeft.show();
   interactionRight.show();
+
+    for (let i = stars.length - 1;i >= 0;i--) {
+    stars[i].update();
+    stars[i].display();
+
+    if (stars[i].done) {
+      stars.splice(i, 1); 
+    }
+  }
+
 }
 
 function windowResized() {
@@ -140,11 +152,15 @@ function windowResized() {
 }
 
 function mouseClicked(){
+  let num = random(20, 50);
+  for (let i = 0; i < num; i++) {
+    let velocity = p5.Vector.random2D().mult(random(2, 5));
+    stars.push(new Star(mouseX, mouseY, velocity.x, velocity.y)); 
+  }
   // Check if main image was clicked (for future navigation, currently commented out)
   if( isMouseOverImg()){
     // window.location.href = nextPage;
   }
-  
   // Check if left interaction box was clicked, and toggle its active state (show/hide closeup)
   if(interactionLeft.hoveredOver()){
     interactionLeft.activate();
@@ -158,4 +174,7 @@ function mouseClicked(){
 // Helper function: returns true if mouse is currently over the main portrait image
 function isMouseOverImg(){
   return(mouseX > imgX-imgWidth/2 && mouseY > imgY-imgHeight/2 && mouseX < imgX+imgWidth/2 && mouseY < imgY+imgHeight/2);
+}
+function mouseDragged() {
+  stars.push(new Star(mouseX, mouseY, 0, 0));
 }
