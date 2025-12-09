@@ -6,24 +6,75 @@ body{
     font-style: normal;
 }
 
-.pop-up{
+button{
+    background-color: black;
+    border: 2px white solid;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 5px 15px 5px 15px;
+    border: 2px white solid;
+    box-shadow: 0px 0px 20px 0px #ffffff ;
+    border-radius: 25px;
+}
+
+#damn{
     background-color: black;
     color: white;
     width: 500px;
+    max-width: fit-content;
     height: 300px;
+    max-height: fit-content;
     padding: 20px 20px 20px 20px;
     border: 2px white solid;
     box-shadow: 0px 0px 20px 0px #ffffff ;
+    /* Fade */
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s;
+    /* Centering */
+    margin-inline: auto;
+    border-radius: 2px;
+
 }
 
-.pop-up > h1{
+#damn > h1{
     margin: 0;
 }
-.pop-up > hr {
+#damn > hr {
     margin: 10px 0px 10px 0px;
 }
-.pop-up > h5{
+#damn > h5{
     margin: 5px;
     font-style: italic;
     font-weight: 500;
+}
+
+#damn > button{
+    background-color: transparent;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0px 0px 0px 0px #ffffff ;
+}
+
+#damn > button:hover{
+    opacity: 0.5;
+    transition: all ease 0.1s;
+}
+
+@-webkit-keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity:1 ;}
 }
