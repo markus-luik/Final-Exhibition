@@ -1,6 +1,6 @@
 let nextPageRight = "Elephant.html";
 let nextPageLeft = "Fish.html";
-let nextPage = "Portrait.html";
+let nextPage = "FlockTree.html";
 
 //side image defaults
 let defaultBrightness = 200;

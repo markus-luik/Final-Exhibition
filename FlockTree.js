@@ -1,4 +1,4 @@
-let nextPage = "CrowdTree.html";
+let nextPage = "Portrait.html";
 let imgTree;
   let TreeX;
   let TreeY;

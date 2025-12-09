@@ -1,4 +1,4 @@
-let nextPage = "FlockTree.html";
+let nextPage = "CrowdTree.html";
 let imgWindow;
   let WindowWidth = 349;
   let WindowHeight = 562;
