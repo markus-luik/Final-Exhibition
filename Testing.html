@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>TeeTime</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="p5.js"></script>
+    <script src="p5.sound.min.js"></script>
+    <script src="scr_global.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="Testing.css">
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <main>
+    </main>
+    <button>This button shows a pop-up</button>
+    <br>
+    <p>This is a pop-up mockup</p>
+    <div class="pop-up">
+        <h1>Heading</h1>
+        <hr>
+        <h5>Houzhi Ke</h5>
+        <h5>2025</h5>
+        <h5>Crayon and watercolor</h5>
+        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Laborum perspiciatis alias, culpa iste voluptatem reiciendis quibusdam, tempora commodi eius exercitationem dolorem repudiandae ipsum? Sit, necessitatibus adipisci! Aliquid consequatur totam nihil?</p>
+    </div>
+  </body>
+  <script>
+    $(function(){
+	
+	//DOM queries		
+	let popup= $(".pop-up");
+	let box = $(".box");	
+	let todaySpan = $("#today");
+	let dayMessage = $("#dayMessage");
+						
+	// function that changes content
+  	function updateMessage() {
+   	 	message.text("The message has changed!");
+  	}
+  	
+  	// function that changes color of box
+  	function changeColor(){
+  		box.css("background-color","green");
+  	}
+  	
+  	// function that populates the date
+  	let today = new Date();
+  	let dateString = today.toDateString();
+  	todaySpan.text(dateString);
+  	
+  	 // DATE: day-of-week message
+  let day = today.getDay(); // 0 = Sunday, 6 = Saturday
+
+  if (day === 0) {
+    dayMessage.text("Happy Sunday! Relax and recharge.");
+  } else if (day === 1) {
+    dayMessage.text("Monday: New week, new energy!");
+  } else if (day === 2) {
+    dayMessage.text("Tuesday: Keep the momentum going.");
+  } else if (day === 3) {
+    dayMessage.text("Wednesday: Halfway there!");
+  } else if (day === 4) {
+    dayMessage.text("Thursday: Almost to the weekend.");
+  } else if (day === 5) {
+    dayMessage.text("Friday: You made it!");
+  } else if (day === 6) {
+    dayMessage.text("Saturday: Enjoy your weekend!");
+  }
+			
+  	// event handlers
+ 	$("#changeTextBtn").click(updateMessage);
+ 	$("#changeBoxBtn").click(changeColor);			
+
+// make the box draggable (needs jQuery UI loaded)
+  box.draggable({
+    start: function() {
+    $("body").css("background-color", randomColor());
+  }
+  });
+  
+    function randomColor() {
+    return "hsl(" + Math.floor(Math.random() * 360) + ", 80%, 70%)";
+  }
+	
+	message.draggable({});
+
+});
+	
+  </script>
+</html>
