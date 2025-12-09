@@ -1,5 +1,8 @@
 // scr_global.js is readable by all pages and contains shared code and variables.
 
+//debug mode boolean
+bugCathcerMode = false;
+
 // Initialize flags from localStorage (persist across page loads).
 // Use sessionStorage instead if you want values to clear when the tab closes.
 let hasGoneToBedroom = localStorage.getItem('hasGoneToBedroom') === 'true';
@@ -9,9 +12,6 @@ let hasGoneToTeaTime = localStorage.getItem('hasGoneToTeaTime') === 'true';
 
 //for flicker
 let offset = 0.5;
-
-//debug mode boolean
-bugCathcerMode = true;
 
 // Utility: mark a painting visited (call from each page when user arrives)
 function markVisited(painting) {

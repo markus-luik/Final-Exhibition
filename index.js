@@ -14,7 +14,7 @@ let imgWindowShadow;
 let mouseSpeed;
 let lightON = false;
   let bgColor = 0;
-  let WindowDarkness = 25; //0 is black, 255 is white
+  let WindowDarkness = 40; //0 is black, 255 is white
   let WindowOpacity = 180;
   let lightBrightness = 255;
   let lightOpacity = 220;
@@ -67,7 +67,7 @@ function draw() {
       noStroke();
       drawingContext.save();
       drawingContext.beginPath();
-      drawingContext.arc(mouseX, mouseY, 100, 0, TWO_PI);
+      drawingContext.arc(mouseX, mouseY, 125, 0, TWO_PI);
       drawingContext.clip();
         tint(lightBrightness, lightOpacity); //revealed
         image(imgWindow, WindowX, WindowY, WindowWidth, WindowHeight);

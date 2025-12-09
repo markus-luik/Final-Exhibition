@@ -5,6 +5,7 @@ let imgCrowd;
   let WidthCrowd;
   let HeightCrowd;
 let Crowd;
+let ForestLeft;
 let imgTree;
   let XTree;
   let YTree;
@@ -12,7 +13,7 @@ let imgTree;
   let HeightTree;
 let padding = 10;
 let movement_freedom_px = 120;
-let mov_speed = 2;
+let mov_speed = 1.5;
 let size_factor = 0.90;
 
 //background colors
@@ -29,7 +30,8 @@ let placementModeActive = false;
 function preload(){ //images preload
   imgCrowd = loadImage('Assets/CrowdTree_Crowd.png');
   imgTree = loadImage('Assets/CrowdTree_Tree.png');
-  Crowd = loadImage('Assets/crowdCut.png')
+  Crowd = loadImage('Assets/crowdCut.png');
+  // ForestLeft = loadImage();
 }
 
 function setup() {
@@ -55,7 +57,7 @@ function setup() {
       YCrowd = height/2;
     //tree
       XTree = width/2;
-      YTree = YCrowd - WidthTree;
+      YTree = YCrowd - WidthTree*2;
 
   ///DEBUG
   if(bugCathcerMode){
@@ -73,13 +75,13 @@ function draw() {
   background(5, 5, 5, 10);
   background(bgR,bgG,bgB,opacity);
 
-  if(YTree > (-height/3) && YTree < (height/20)){
-    bgR = map(YTree, -height/3, height/20, 255, 0);
-    bgB = map(YTree, -height/3, height/20, 0, 255);
+  if(YTree > (-height) && YTree < (-height/5)){
+    bgR = map(YTree, -height, -height/5, 255, 0);
+    bgB = map(YTree, -height, -height/5, 0, 255);
   }
-  if(YTree > (height/20) && YTree < (height/2)){
-    bgG = map(YTree, height/20, height/2, 0, 255);
-    bgB = map(YTree, height/20, height/2, 255, 0);
+  if(YTree > (-height/5) && YTree < (height/2)){
+    bgG = map(YTree, -height/5, height/2, 0, 240);
+    bgB = map(YTree, -height/5, height/2, 255, 30);
   }
   
   
@@ -108,8 +110,8 @@ function draw() {
             //YTree
           text(YTree, 10, 10);
             //breakpoints
-          text("-height/3 = " + (-height/3), 10, 30);
-          text("height/20 = " + (height/20), 10, 45);
+          text("-height = " + (-height), 10, 30);
+          text("-height/5 = " + (-height/5), 10, 45);
           text("height/2 = " + (height/2), 10, 60);
             //rgb
           text("bgR = " + bgR, 10, 90);
