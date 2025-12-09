@@ -16,9 +16,8 @@
   <body>
     <main>
     </main>
-    <button id="button">about</button>
-    <br>
-    <p>This is a pop-up mockup</p>
+    <img id="testImg" src="Assets/CrowdTree_closeup_both.JPG" alt="">
+    <div id="backgroundCover"></div>
     <div id="damn">
         <h1>Heading</h1>
         <hr>
@@ -26,47 +25,21 @@
         <h5>2025</h5>
         <h5>Crayon and watercolor</h5>
         <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Laborum perspiciatis alias, culpa iste voluptatem reiciendis quibusdam, tempora commodi eius exercitationem dolorem repudiandae ipsum? Sit, necessitatibus adipisci! Aliquid consequatur totam nihil?</p>
-        <button id="damnButton">I understand</button>
+        <button id="hidePrompt">I understand</button>
     </div>
+    <button id="toggleButton">about</button>
   </body>
   <script>
-
-	
-	// //DOM queries		
-	// let popup = $(".popup");
-	
-	// $(".popup").draggable({});
-
-    
-
-
-    //   // jQuery to add text to the page
-    //   $("p").html("Hello, jQuery!");
-        
-    //   // jQuery to add an image to the page
-    //   $('#image').html('<img src="img/star.png">');
-
-    //   // jquery to change the page's background color
-    //   $("body").css("background-color", "gray");
-
-    //   // jQuery to change text color
-    //   $("p").css('color', 'magenta');
-
-    //   // jQuery to hide an element
-    //   $('#image').hide();
-
-    //   // jQuery effect to fade in element
-    //   $('#image').fadeIn('slow');
       $("#damn").hide();
+      $("#backgroundCover").hide();
       // jQuery action to hide p tags on click
-       $("#button").click(function(){
+       $("#toggleButton").click(function(){
         $("#damn").toggle();
+        $("#backgroundCover").toggle();
        });
-       $("#damnButton").click(function(){
+       $("#hidePrompt").click(function(){
         $("#damn").hide();
+        $("#backgroundCover").hide();
        });
-       
-    
-	
   </script>
 </html>
