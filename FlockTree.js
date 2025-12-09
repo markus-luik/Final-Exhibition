@@ -5,6 +5,9 @@ let imgTree;
   let TreeWidth;
   let TreeHeight;
 let padding = 100;
+//particles
+let ps = []; 
+
 
 function preload(){ //has to be preloaded :(
   imgTree = loadImage('Assets/FlockTree.JPG');
@@ -13,7 +16,8 @@ function preload(){ //has to be preloaded :(
 function setup() {
   createCanvas(700, 800);
   resizeCanvas(windowWidth, windowHeight);
-  
+  colorMode(HSB, 255);
+
   imageMode(CENTER);
    let Scale = min(windowWidth/imgTree.width, windowHeight/ imgTree.height);
   TreeWidth = imgTree.width * Scale - padding;
@@ -38,18 +42,32 @@ function isMouseOverTree(){
 }
 
 function draw() {
-  clear(); //empty background
-  //  background(255);
+  // clear(); //empty background
+  background(0);
   //Tree
   TreeX = width/2;
   TreeY = height/2;
   image(imgTree, TreeX, TreeY, TreeWidth, TreeHeight);
   
-      //CURSOR CHANGE
-     if (isMouseOverTree()) { 
-       cursor('Assets/bird32.png'); 
-      //  cursor('/assets/target.png')
-     }else{
-       cursor(ARROW);
-     }
+  cursor('Assets/bird32.png'); 
+    //CURSOR CHANGE
+    //  if (isMouseOverTree()) { 
+       
+    //  cursor('/assets/target.png')
+    //  }else{
+    //    cursor(ARROW);
+    //  }
+    if (abs(pmouseX - mouseX) > 0 || abs(pmouseY - mouseY) > 0) {
+    ps.push(new System(mouseX, mouseY));
+  }
+
+  //particles
+  for (let i=ps.length-1; i>=0; i--) {
+    ps[i].update();
+    ps[i].display();
+    
+    if (ps[i].done) {
+      ps.splice(i, 1);
+    }
+  }
 }
