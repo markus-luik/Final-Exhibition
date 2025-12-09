@@ -36,20 +36,9 @@ let eyeright;
 let mouth;
 
 function preload(){ //has to be preloaded :(
-    // Uses relative paths
-    // Error callbacks to catch missing files.
-    eyeleft = loadImage('Assets/fishEyesLeft.png',
-        img => { eyeleft = img; },
-        err => { console.warn('Failed to load eyeleft:', err); }
-    );
-    eyeright = loadImage('Assets/fishEyesRight.png',
-        img => { eyeright = img; },
-        err => { console.warn('Failed to load eyeright:', err); }
-    );
-    mouth = loadImage('Assets/fishMouth.png',
-        img => { mouth = img; },
-        err => { console.warn('Failed to load mouth image:', err); }
-    );
+    eyeleft = loadImage('Assets/fishEyesLeft.png');
+    eyeright = loadImage('Assets/fishEyesRight.png');
+    mouth = loadImage('Assets/fishMouth.png');
     img = loadImage('Assets/Fish.JPG');
     left = loadImage('Assets/TeaTime.jpg');
     right = loadImage('Assets/Bedroom/Bedroom.JPG');
@@ -179,29 +168,6 @@ function windowResized() { //window resizer (p5.js)
 function imagePositioner(){
     //checks img scale and references it to the others
     //img
-//     let mainScale = img.width/ img.height;
-//     imgHeight =  height
-//     imgWidth = imgHeight*mainScale
-//     //right
-//     let leftScale = right.width/ right.height;
-//     rightHeight = height;
-//     rightWidth = rightHeight*leftScale
-//     //left
-//     let rightScale = left.width/ left.height;
-//     leftHeight = height;
-//     leftWidth = leftHeight*rightScale
-
-//   //Starting / Reset Locations
-//     //img [imgXY: Coordinate of img Center]
-//     imgX = width/2;
-//     imgY = height/2;
-//     //right
-//     rightX = imgX+(imgWidth/2)+(rightWidth/2); //PROBLEM: 125 is hardcoded to make the elephant roughly equal distance to the fish (from the central image); however when the window has a small height, the elephant dissapears faster than the fish
-//     rightY = height/2;
-//     //left
-//     leftX = imgX-(imgWidth/2)-(leftWidth/2);
-//     leftY = height/2;
-
     let Scale = min(windowWidth/img.width, windowHeight/ img.height);
     imgWidth = img.width * Scale - padding;
     imgHeight =  img.height * Scale - padding;
@@ -211,8 +177,6 @@ function imagePositioner(){
     //left
     leftWidth = (left.width * Scale)*leftSIZEmult;
     leftHeight = (left.height * Scale)*leftSIZEmult;
-
-    circleSize = map(Scale, 0, 1, 50, 150)
 
   //Starting / Reset Locations
     //img
