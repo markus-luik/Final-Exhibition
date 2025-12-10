@@ -234,6 +234,19 @@ function mouseReleased(){
   }
 }
 
+function touchEnded(){
+  if( isMouseOverTree()){
+    window.location.href = nextPage;
+  }
+  if (bugCathcerMode){
+    // If placement UI is active, forward click and skip normal navigation
+    if (placementUI && placementUI.isActive()) {
+      placementUI.handleClick(mouseX, mouseY);
+      return;
+    }
+  }
+}
+
 function isMouseOverTree(){
   return(mouseX > XTree-WidthTree/2 && mouseY > YTree-HeightTree/2 && mouseX < XTree+WidthTree/2 && mouseY < YTree+HeightTree/2);
 }

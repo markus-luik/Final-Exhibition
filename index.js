@@ -96,6 +96,19 @@ function mouseReleased(){
   }
 }
 
+function touchEnded(){
+  if(!popupActive){ //if NO popup overlaying
+    if(lightON && isMouseOverWindow()){
+      window.location.href = nextPage;
+    } else if(!lightON && isMouseOverWindow()){
+      lightON = true;
+      bgColor = 255;
+      WindowDarkness = 255;
+      WindowOpacity = 255;
+    }
+  }
+}
+
 function windowResized() { //window resizer
   resizeCanvas(windowWidth, windowHeight); //-1 to prevent scroll bars
     //Window (art) repositioning
