@@ -69,11 +69,11 @@ function preload(){ //has to be preloaded :(
   left = loadImage('Assets/Fish.JPG');
 
   //interaction images
-  moon = loadImage('Assets/Bedroom/Moon.png');
-  bird = loadImage('Assets/Bedroom/Bird1.png');
-  bird2 = loadImage('Assets/Bedroom/Bird2.png');
-  bird3 = loadImage('Assets/Bedroom/Bird3.png');
-  mirror = loadImage('Assets/Bedroom/Mirror.png');
+  moon = loadImage('Assets/Bedroom/moon.png');
+  bird = loadImage('Assets/Bedroom/bird1.png');
+  bird2 = loadImage('Assets/Bedroom/bird2.png');
+  bird3 = loadImage('Assets/Bedroom/bird3.png');
+  mirror = loadImage('Assets/Bedroom/nirror.png');
   bath = loadImage('Assets/Bedroom/bath.png');
   tap = loadImage('Assets/Bedroom/tap.png');
 }
