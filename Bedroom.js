@@ -242,6 +242,12 @@ function draw() {
       //   {
       //     interactionMoon.show();
       //   }
+        if (hasGoneToBedroom && hasGoneToFish && hasGoneToElephant && hasGoneToTeaTime)// IF ALL PAINTINGS VISITED, SHOW MOON INTERACTION
+          {
+            if(isMouseOver(interactionMoon.x, interactionMoon.y, interactionMoon.width, interactionMoon.height)){
+              cursor(HAND)
+            }
+          }
       } else{
         interactionGraphicsON = false;
         if (isMouseOver(rightX,rightY,rightWidth,rightHeight)){
