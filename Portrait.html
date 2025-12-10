@@ -2,11 +2,20 @@
 <html lang="en">
   <head>
     <title>Portrait</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900" rel="stylesheet">
+    <!-- Jquery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <!-- P5.js -->
     <script src="p5.js"></script>
     <script src="p5.sound.min.js"></script>
+    <!-- Separate scripts -->
     <script src="scr_misc.js"></script>
     <script src="scr_global.js"></script>
     <script src="star.js"></script>
+    <!-- Stylesheet -->
     <link rel="stylesheet" type="text/css" href="style.css">
     <meta charset="utf-8" />
   </head>
@@ -14,6 +23,71 @@
     <main>
     </main>
     <script src="Portrait.js"></script>
-    
+    <div id="popupContainer">
+      <div id="backgroundCover"></div>
+      <div id="introductionbox">
+        <h1>The End</h1>
+        <hr>
+        <p>This is the final artwork in the exhibition. Here, you can use your <b>mouse</b> to play with a <b>starburst effect</b> and click on the <b>left or right</b> to reveal a <b>closeup</b> of the artwork (<b>Note</b>: click on the same area again to hide the closeup). We sincerely hope you enjoyed the exhibition. Thank you for visiting.</p>
+        <hr>
+        <p>Credits:</p>
+        <p><a href="https://www.houzhike.com/">Houzhi Ke</a> - Lead Artist, Concept Designer, Effects Programmer</p>
+        <p><a href="https://markusluik.itch.io/">Markus Luik</a> - Lead Programmer, Concept Designer, Interactions Programmer</p>
+        <hr>
+        <button id="introHidePrompt">End</button>
+      </div>
+      <div id="popupbox">
+        <h1>Portrait</h1>
+        <hr>
+        <h5>Houzhi Ke</h5>
+        <h5>2023-2024</h5>
+        <h5>Acrylic paint, DVD fragments, glass fragments, fluffy balls, color pencil</h5>
+        <p>The last artwork is a portrait using both cool and warm tones, a moment where emotions settle into the same space. After moving through tension, fear, and coping, this piece offers a point of coexistence rather than resolution.</p>
+        <hr>
+        <p>Use your <b>mouse</b> to play with a <b>starburst effect</b>.</p>
+        <hr>
+        <p>Click on the <b>left or right</b> to reveal a <b>closeup</b> of the artwork. (<b>Note</b>: click on the same area again to hide the closeup.)</p>
+        <hr>
+        <button id="hidePrompt">Back</button>
+      </div>
+      <button id="toggleButton">about</button>
+    </div>
   </body>
+  <script>
+      $("#backgroundCover").show();
+      $('#introductionbox').show();
+      $("#popupbox").hide();
+      $("#toggleButton").hide();
+      popupActive = true;
+      console.log("PopUp active: "+popupActive)
+
+      $("#introHidePrompt").click(function(){
+        $('#introductionbox').hide();
+        $("#backgroundCover").hide();
+        $("#toggleButton").show();
+        popupActive = false;
+        console.log("PopUp active: "+popupActive);
+      });
+
+      //About toggle
+      $("#toggleButton").click(function(){
+        $("#popupbox").toggle();
+        $("#backgroundCover").toggle();
+        if (popupActive){
+          popupActive = false;
+          console.log("PopUp active: "+popupActive)
+        }else{
+          popupActive = true;
+          console.log("PopUp active: "+popupActive)
+        }
+       });
+       //Popup hide
+       $("#hidePrompt").click(function(){
+        $("#popupbox").hide();
+        $("#backgroundCover").hide();
+        $("#toggleButton").show();
+        popupActive = false;
+        console.log("PopUp active: "+popupActive);
+       });
+  </script>
 </html>

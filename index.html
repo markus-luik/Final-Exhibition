@@ -2,10 +2,19 @@
 <html lang="en">
   <head>
     <title>Window</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900" rel="stylesheet">
+    <!-- Jquery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <!-- P5.js -->
     <script src="p5.js"></script>
     <script src="p5.sound.min.js"></script>
+    <!-- Separate scripts -->
     <script src="scr_misc.js"></script>
     <script src="scr_global.js"></script>
+    <!-- Stylesheet -->
     <link rel="stylesheet" type="text/css" href="style.css">
     <meta charset="utf-8" />
 
@@ -14,5 +23,68 @@
     <main>
     </main>
     <script src="index.js"></script>
+    <div id="popupContainer">
+      <div id="backgroundCover"></div>
+      <div id="introductionbox">
+        <h1>Visitor Guide</h1>
+        <hr>
+        <p><b>Welcome to the digital house.</b></p>
+        <p>This exhibition is designed as a linear journey through a series of emotional spaces. Visitors begin outside and gradually move inward, encountering visual environments that reflect different internal states and psychological responses.</p>
+        <hr>
+        <p>There are a total of six artworks. Interact with them using your <u>mouse</u> and read more about them using the <u>about</u> button.</p>
+        <hr>
+        <p><b>Note</b>: There are <b>flashing lights</b> in one of the artworks.</p>
+        <hr>
+        <button id="introHidePrompt">I understand</button>
+      </div>
+      <div id="popupbox">
+        <h1>The Window</h1>
+        <hr>
+        <h5>Houzhi Ke</h5>
+        <h5>2023-2024</h5>
+        <h5>Windowframe, acrylic paint, paper cutouts, pill bottles</h5>
+        <p>Your experience begins outside the house. These exterior scenes function as an entry window, setting the tone for the journey ahead. They introduce the shifting sensitivities behind the series – movement, attention, and emotional transition – before guiding you toward the interior rooms.</p>
+        <hr>
+        <button id="hidePrompt">Back</button>
+      </div>
+      <button id="toggleButton">about</button>
+    </div>
   </body>
+  <script>
+      $("#backgroundCover").show();
+      $('#introductionbox').show();
+      $("#popupbox").hide();
+      $("#toggleButton").hide();
+      popupActive = true;
+      console.log("PopUp active: "+popupActive)
+
+      $("#introHidePrompt").click(function(){
+        $('#introductionbox').hide();
+        $("#backgroundCover").hide();
+        $("#toggleButton").show();
+        popupActive = false;
+        console.log("PopUp active: "+popupActive);
+      });
+
+      //About toggle
+      $("#toggleButton").click(function(){
+        $("#popupbox").toggle();
+        $("#backgroundCover").toggle();
+        if (popupActive){
+          popupActive = false;
+          console.log("PopUp active: "+popupActive)
+        }else{
+          popupActive = true;
+          console.log("PopUp active: "+popupActive)
+        }
+       });
+       //Popup hide
+       $("#hidePrompt").click(function(){
+        $("#popupbox").hide();
+        $("#backgroundCover").hide();
+        $("#toggleButton").show();
+        popupActive = false;
+        console.log("PopUp active: "+popupActive);
+       });
+  </script>
 </html>

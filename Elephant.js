@@ -163,40 +163,42 @@ function draw() { //(run indefinitely)
 
   
   //CURSOR CHANGE
-  if (!isMouseOver(leftX,leftY,leftWidth,leftHeight) && !isMouseOver(rightX,rightY,rightWidth,rightHeight)){ //left
-      cursor(ARROW);
-      leftBrightness = defaultBrightness;
-      leftOpacity = defaultOpacity;
-      rightBrightness = defaultBrightness;
-      rightOpacity = defaultOpacity;
-    } else if (isMouseOver(rightX,rightY,rightWidth,rightHeight)){ //right
-            rightBrightness = 255;
-            rightOpacity = 225;
-            cursor(HAND);
-        }else if (isMouseOver(leftX,leftY,leftWidth,leftHeight)){ //left
-            leftBrightness = 255;
-            leftOpacity = 225;
-            cursor(HAND);
-        }
+  if (!popupActive){
+    if (!isMouseOver(leftX,leftY,leftWidth,leftHeight) && !isMouseOver(rightX,rightY,rightWidth,rightHeight)){ //left
+        cursor(ARROW);
+        leftBrightness = defaultBrightness;
+        leftOpacity = defaultOpacity;
+        rightBrightness = defaultBrightness;
+        rightOpacity = defaultOpacity;
+      } else if (isMouseOver(rightX,rightY,rightWidth,rightHeight)){ //right
+              rightBrightness = 255;
+              rightOpacity = 225;
+              cursor(HAND);
+          }else if (isMouseOver(leftX,leftY,leftWidth,leftHeight)){ //left
+              leftBrightness = 255;
+              leftOpacity = 225;
+              cursor(HAND);
+          }
 
-        if (isMouseOver(imgX,imgY,imgWidth,imgHeight)){
-          cursor(ARROW);
-          leftBrightness = defaultBrightness;
-          leftOpacity = defaultOpacity;
-          rightBrightness = defaultBrightness;
-          rightOpacity = defaultOpacity;
-          //SHOW INTERACTIONS
-          for (let i = 0; i < interactionArray.length; i++){
-            let interaction = interactionArray[i];
-            if (typeof interaction !== 'undefined' && interaction) {
-              if (interaction.hoveredOver()){
-                interaction.sizeMult = lerp(interaction.sizeMult, 1.2, 0.3);
-                print("Mouse is over me! " + interaction)
-              } else {interaction.sizeMult = lerp(interaction.sizeMult, 1, 0.4);}
-              interaction?.show();
+          if (isMouseOver(imgX,imgY,imgWidth,imgHeight)){
+            cursor(ARROW);
+            leftBrightness = defaultBrightness;
+            leftOpacity = defaultOpacity;
+            rightBrightness = defaultBrightness;
+            rightOpacity = defaultOpacity;
+            //SHOW INTERACTIONS
+            for (let i = 0; i < interactionArray.length; i++){
+              let interaction = interactionArray[i];
+              if (typeof interaction !== 'undefined' && interaction) {
+                if (interaction.hoveredOver()){
+                  interaction.sizeMult = lerp(interaction.sizeMult, 1.2, 0.3);
+                  print("Mouse is over me! " + interaction)
+                } else {interaction.sizeMult = lerp(interaction.sizeMult, 1, 0.4);}
+                interaction?.show();
+              }
             }
           }
-        }
+    }
 
      //DEBUG/////
     if(bugCathcerMode){
@@ -221,23 +223,25 @@ function draw() { //(run indefinitely)
     /////////
 }
 
-function mouseClicked(){ // (p5.js)
-  // If placement UI is active, forward click and skip normal navigation
-  if (placementUI && placementUI.isActive()) {
-    placementUI.handleClick(mouseX, mouseY);
-    return;
-  }
-
-  //check where to go based on click
-  //NOTE: this is currently clunky since the first if statement is already being tested in the draw loop
-  if(!isMouseOver(imgX,imgY,imgWidth,imgHeight)){
-    //right
-    if( isMouseOver(rightX,rightY,rightWidth,rightHeight)){
-      window.location.href = nextPageRight;
+function mouseReleased(){ // (p5.js)
+  if (!popupActive){
+    // If placement UI is active, forward click and skip normal navigation
+    if (placementUI && placementUI.isActive()) {
+      placementUI.handleClick(mouseX, mouseY);
+      return;
     }
-    //left
-    if(isMouseOver(leftX,leftY,leftWidth,leftHeight)){
-      window.location.href = nextPageLeft;
+
+    //check where to go based on click
+    //NOTE: this is currently clunky since the first if statement is already being tested in the draw loop
+    if(!isMouseOver(imgX,imgY,imgWidth,imgHeight)){
+      //right
+      if( isMouseOver(rightX,rightY,rightWidth,rightHeight)){
+        window.location.href = nextPageRight;
+      }
+      //left
+      if(isMouseOver(leftX,leftY,leftWidth,leftHeight)){
+        window.location.href = nextPageLeft;
+      }
     }
   }
 }

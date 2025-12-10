@@ -4,15 +4,31 @@ body{
     background-color: black;
     animation: fadeIn 1.6s ease-in forwards;
     opacity: 0;
-  /* background-color: black; */
-  font-family: "Nunito Sans", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 400;
-  font-style: normal;
-  font-variation-settings:
+    /* background-color: black; */
+    /* font-family: "Nunito Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-variation-settings:
     "wdth" 100,
     "YTLC" 500;
-    font-size: 14x;
+    font-size: 14x; */
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 16px;
+}
+
+a{
+  color: white;
+  text-decoration: none;
+}
+a:hover{
+  text-decoration: underline;
+}
+a:active{
+  font-weight: 200;
 }
 
 @keyframes fadeIn {
@@ -45,3 +61,118 @@ text-align: justify;
 color: #fff;
 transition: color 0.5s ease-in-out;
 }
+
+/* POPUP */
+#popupContainer{
+    margin: 20px;
+    /* Flex */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* height: 100vh; */
+    margin: 0;
+}
+
+  #toggleButton{
+      background-color: black;
+      border: 2px white solid;
+      color: white;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      cursor: pointer;
+      padding: 5px 15px 5px 15px;
+      border: 2px white solid;
+      box-shadow: 0px 0px 20px 0px #ffffff ;
+      border-radius: 25px;
+      /* positioning */
+      position: fixed;
+      top: 25px;
+      left: 25px;
+
+      opacity: 0.3;
+  }
+
+  #toggleButton:hover{
+    opacity: 1;
+    transition: all ease 0.1s;
+  }
+
+  #backgroundCover{
+      position: fixed;
+      top: 0px;
+      left: 0px;
+      width: 100%;
+      height: 100%;
+      background-color: black;
+      opacity: 0.7;
+  }
+
+  #popupbox, #introductionbox{
+      background-color: black;
+      color: white;
+      width: 600px;
+      max-width: auto;
+      height: fit-content;
+      padding: 20px 20px 30px 20px;
+      border: 2px white solid;
+      box-shadow: 0px 0px 20px 0px #ffffff ;
+      /* Fade */
+      -webkit-animation: fadeIn 1s;
+      animation: fadeIn 1s;
+      /* Centering */
+      position: fixed;
+      top: 100px;
+      /* display: block; */
+      /* Corners */
+      border-radius: 2px;
+
+      line-height: 1.5;
+  }
+
+  #popupbox > h1, #introductionbox > h1{
+      margin: 0;
+  }
+  #popupbox > hr, #introductionbox > hr{
+      margin: 10px 0px 10px 0px;
+  }
+  #popupbox > h5, #introductionbox > h5{
+      margin: 0px 0px 0px 0px;
+      font-style: italic;
+      font-weight: 100;
+      font-size: 16px;
+      line-height: 1.5;
+  }
+
+  #popupbox > button, #introductionbox > button{
+      background-color: transparent;
+      border: none;
+      color: white;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      /* font */
+      font-family: "Montserrat", sans-serif;
+      font-optical-sizing: auto;
+      font-weight: 200;
+      font-style: normal;
+      font-size: 16px;
+      cursor: pointer;
+      padding: 0;
+  }
+
+  #popupbox > button:hover, #introductionbox > button:hover{
+      opacity: 0.5;
+      transition: all ease 0.1s;
+  }
+
+  @-webkit-keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+  }
+
+  @keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity:1 ;}
+  }

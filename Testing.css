@@ -48,7 +48,7 @@ body{
     opacity: 0.7;
 }
 
-#damn{
+#popupbox{
     background-color: black;
     color: white;
     width: 600px;
@@ -70,19 +70,19 @@ body{
 
 }
 
-#damn > h1{
+#popupbox > h1{
     margin: 0;
 }
-#damn > hr {
+#popupbox > hr {
     margin: 10px 0px 10px 0px;
 }
-#damn > h5{
+#popupbox > h5{
     margin: 5px;
     font-style: italic;
     font-weight: 500;
 }
 
-#damn > button{
+#popupbox > button{
     background-color: transparent;
     border: none;
     color: white;
@@ -93,7 +93,7 @@ body{
     cursor: pointer;
 }
 
-#damn > button:hover{
+#popupbox > button:hover{
     opacity: 0.5;
     transition: all ease 0.1s;
 }

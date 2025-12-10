@@ -2,10 +2,19 @@
 <html lang="en">
   <head>
     <title>Fish</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900" rel="stylesheet">
+    <!-- Jquery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <!-- P5.js -->
     <script src="p5.js"></script>
     <script src="p5.sound.min.js"></script>
+    <!-- Separate scripts -->
     <script src="scr_misc.js"></script>
     <script src="scr_global.js"></script>
+    <!-- Stylesheet -->
     <link rel="stylesheet" type="text/css" href="style.css">
     <meta charset="utf-8" />
   </head>
@@ -13,5 +22,50 @@
     <main>
     </main>
     <script src="Fish.js"></script>
+    <div id="popupContainer">
+      <div id="backgroundCover"></div>
+      <div id="popupbox">
+        <h1>The Living Room (Giant Fish)</h1>
+        <hr>
+        <h5>Houzhi Ke</h5>
+        <h5>2023-2024</h5>
+        <h5>Acrylic paint</h5>
+        <p>Here, to left of the bedroom, is the <b>Living Room </b> depicting a startling scene of a giant fish breaking through the door. This room represents <b>fear</b> – a disruptive force that blocks retreat and demands confrontation.</p>
+        <hr>
+        <p><b>Note</b>: <b>Flashing lights warning!</b></p>
+        <hr>
+        <p><b>Note</b>: Once you enter this room, <b>you cannot return to the Bedroom</b>; you <b>must</b> face what’s ahead to continue forward.</p>
+        <hr>
+        <button id="hidePrompt">Back</button>
+      </div>
+      <button id="toggleButton">about</button>
+    </div>
   </body>
+  <script>
+      $("#backgroundCover").hide();
+      $("#popupbox").hide();
+      $("#toggleButton").show();
+      popupActive = false;
+      console.log("PopUp active: "+popupActive)
+      //About toggle
+      $("#toggleButton").click(function(){
+        $("#popupbox").toggle();
+        $("#backgroundCover").toggle();
+        if (popupActive){
+          popupActive = false;
+          console.log("PopUp active: "+popupActive)
+        }else{
+          popupActive = true;
+          console.log("PopUp active: "+popupActive)
+        }
+       });
+       //Popup hide
+       $("#hidePrompt").click(function(){
+        $("#popupbox").hide();
+        $("#backgroundCover").hide();
+        $("#toggleButton").show();
+        popupActive = false;
+        console.log("PopUp active: "+popupActive);
+       });
+  </script>
 </html>

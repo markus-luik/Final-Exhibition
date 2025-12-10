@@ -69,6 +69,7 @@ function draw() { //(run indefinitely)
    //img
    image(img, imgX, imgY, imgWidth, imgHeight); 
   
+   if (!popupActive){
     //CURSOR CHANGE //NOTE: i'm sure there's a better way of structuring the cursor change aside from repeating it in both if statements
     if (!isMouseOver(imgX,imgY,imgWidth,imgHeight)) {  //NOT on the main image 
         if (isMouseOver(rightX,rightY,rightWidth,rightHeight)){ //right
@@ -92,12 +93,11 @@ function draw() { //(run indefinitely)
             rightBrightness = defaultBrightness; 
             rightOpacity = defaultOpacity;
     }
-
-
-
+  }
 }
 
-function mouseClicked(){ // (p5.js)
+function mouseReleased(){ // (p5.js)
+  if (!popupActive){
     //check where to go based on click
     //NOTE: this is currently clunky since the first if statement is already being tested in the draw loop
     if(!isMouseOver(imgX,imgY,imgWidth,imgHeight)){
@@ -110,6 +110,7 @@ function mouseClicked(){ // (p5.js)
             window.location.href = nextPageLeft;
         }
     }
+  }
 }
 
 function isMouseOver(somethingX, somethingY, somethingWidth, somethingHeight){
@@ -122,18 +123,6 @@ function windowResized() { //window resizer (p5.js)
 }
 
 function imagePositioner(){
-    // //checks img scale and references it to the others
-    // //img
-    // let Scale = min(windowWidth/img.width, windowHeight/ img.height);
-    // imgWidth = (img.width * Scale) * imgSIZEmult - padding;
-    // imgHeight =  (img.height * Scale) * imgSIZEmult - padding;
-    // //right
-    // rightWidth = (right.width * Scale)*rightSIZEmult;
-    // rightHeight = (right.height * Scale)*rightSIZEmult;
-    // //left
-    // leftWidth = (left.width * Scale)*leftSIZEmult;
-    // leftHeight = (left.height * Scale)*leftSIZEmult;
-
     // Calculate dimensions for all images
       //main
     let mainImage = imageSizeCalculator(img, imgWidth, imgHeight, padding, 1);

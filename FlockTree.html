@@ -2,34 +2,82 @@
 <html lang="en">
   <head>
     <title>FlockTree</title>
+   <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900" rel="stylesheet">
+    <!-- Jquery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <!-- P5.js -->
     <script src="p5.js"></script>
     <script src="p5.sound.min.js"></script>
-    <!-- <script src="p5.brush.js"></script> -->
-    <script src="miscScripts.js"></script>
+    <!-- Separate scripts -->
+    <script src="scr_misc.js"></script>
     <script src="scr_global.js"></script>
+    <!-- Stylesheet -->
     <link rel="stylesheet" type="text/css" href="style.css">
     <meta charset="utf-8" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Roboto:ital,wght@0,100..900;1,100..900&family=Shizuru&family=Slackside+One&family=Sono:wght@200..800&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
   </head>
   <body>
     <main>
       <div class="text-left" style="top: 30px; left: 40px;">
-        <h2>Flock Tree</h2>
+        <!-- <h2>Flock Tree</h2>
         <p>Your experience begins outside the house. 
           These exterior scenes function as an entry window, 
-          setting the tone for the journey ahead. </p>
+          setting the tone for the journey ahead. </p> -->
       </div>
       <div class="text-right" style="top: 30px; right: 40px;">
-        <p>They introduce the shifting sensitivities behind the series 
+        <!-- <p>They introduce the shifting sensitivities behind the series 
           – movement, attention, and emotional transition 
-          – before guiding you toward the interior rooms.</p>
+          – before guiding you toward the interior rooms.</p> -->
       </div>
     </main>
     <script src="FlockTree.js"></script>
     <script src="particle.js"></script>
     <script src="system.js"></script>
+    <div id="popupContainer">
+      <div id="backgroundCover"></div>
+      <div id="popupbox">
+        <h1>Flock & Tree</h1>
+        <hr>
+        <h5>Houzhi Ke</h5>
+        <h5>2023-2024</h5>
+        <h5>Colored pencil</h5>
+        <p>This artwork acts as a moment of transition between the whirlwind of emotions caused by the previous artworks and the stability of the final artwork. Here, the swirling flock offers a sense of freeing movement, one which seems to pull the viewer into flight.</p>
+        <hr>
+        <p><b>Note</b>: Move your mouse to play with a firework effect.</p>
+        <hr>
+        <button id="hidePrompt">Back</button>
+      </div>
+      <button id="toggleButton">about</button>
+    </div>
   </body>
+  <script>
+      $("#backgroundCover").hide();
+      $("#popupbox").hide();
+      $("#toggleButton").show();
+      popupActive = false;
+      console.log("PopUp active: "+popupActive)
+      //About toggle
+      $("#toggleButton").click(function(){
+        $("#popupbox").toggle();
+        $("#backgroundCover").toggle();
+        if (popupActive){
+          popupActive = false;
+          console.log("PopUp active: "+popupActive)
+        }else{
+          popupActive = true;
+          console.log("PopUp active: "+popupActive)
+        }
+       });
+       //Popup hide
+       $("#hidePrompt").click(function(){
+        $("#popupbox").hide();
+        $("#backgroundCover").hide();
+        $("#toggleButton").show();
+        popupActive = false;
+        console.log("PopUp active: "+popupActive);
+       });
+  </script>
 </html>
 

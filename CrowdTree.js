@@ -146,6 +146,7 @@ function draw() {
 
 
     //moving
+    if (!popupActive){
     if (focused){ //checks if browser is focused
     //UP
       if (mouseY < 0+movement_freedom_px){
@@ -188,6 +189,7 @@ function draw() {
           XTree += mov_speed;
         }
     }
+    }
   }
 }
 
@@ -219,7 +221,7 @@ function windowResized() { //window resizer
     }
 }
 
-function mouseClicked(){
+function mouseReleased(){
   if( isMouseOverTree()){
     window.location.href = nextPage;
   }

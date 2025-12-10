@@ -309,7 +309,8 @@ function windowResized() { //window resizer
   graphicsBufferFill();
 }
 
-function mouseClicked(){
+function mouseReleased(){
+  if(!popupActive){
   if (bugCathcerMode){
     // If placement UI is active, forward click and skip normal navigation
     if (placementUI && placementUI.isActive()) {
@@ -339,6 +340,7 @@ function mouseClicked(){
         window.location.href = nextPage; 
       };
     } 
+  }
 
 }
 function imagePositioner(){

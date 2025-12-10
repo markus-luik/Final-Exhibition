@@ -18,7 +18,7 @@
     </main>
     <img id="testImg" src="Assets/CrowdTree_closeup_both.JPG" alt="">
     <div id="backgroundCover"></div>
-    <div id="damn">
+    <div id="popupbox">
         <h1>Heading</h1>
         <hr>
         <h5>Houzhi Ke</h5>
@@ -30,15 +30,15 @@
     <button id="toggleButton">about</button>
   </body>
   <script>
-      $("#damn").hide();
+      $("#popupbox").hide();
       $("#backgroundCover").hide();
       // jQuery action to hide p tags on click
        $("#toggleButton").click(function(){
-        $("#damn").toggle();
+        $("#popupbox").toggle();
         $("#backgroundCover").toggle();
        });
        $("#hidePrompt").click(function(){
-        $("#damn").hide();
+        $("#popupbox").hide();
         $("#backgroundCover").hide();
        });
   </script>

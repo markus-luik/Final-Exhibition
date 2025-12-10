@@ -31,9 +31,11 @@ function windowResized() { //window resizer
   TreeHeight =  imgTree.height * Scale - padding;
 }
 
-function mouseClicked(){
-  if( isMouseOverTree()){
-    window.location.href = nextPage;
+function mouseReleased(){
+  if(!popupActive){
+    if( isMouseOverTree()){
+      window.location.href = nextPage;
+    }
   }
 }
 

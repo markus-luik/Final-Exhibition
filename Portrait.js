@@ -148,23 +148,25 @@ function windowResized() {
   interactionRight.resetPos(imgX, imgY, imgWidth, imgHeight);
 }
 
-function mouseClicked(){
-  let num = random(20, 50);
-  for (let i = 0; i < num; i++) {
-    let velocity = p5.Vector.random2D().mult(random(2, 5));
-    stars.push(new Star(mouseX, mouseY, velocity.x, velocity.y)); 
-  }
-  // Check if main image was clicked (for future navigation, currently commented out)
-  if( isMouseOverImg()){
-    // window.location.href = nextPage;
-  }
-  // Check if left interaction box was clicked, and toggle its active state (show/hide closeup)
-  if(interactionLeft.hoveredOver()){
-    interactionLeft.activate();
-  }
-  // Check if right interaction box was clicked, and toggle its active state (show/hide closeup)
-  if(interactionRight.hoveredOver()){
-    interactionRight.activate();
+function mouseReleased(){
+  if (!popupActive){
+    let num = random(20, 50);
+    for (let i = 0; i < num; i++) {
+      let velocity = p5.Vector.random2D().mult(random(2, 5));
+      stars.push(new Star(mouseX, mouseY, velocity.x, velocity.y)); 
+    }
+    // Check if main image was clicked (for future navigation, currently commented out)
+    if( isMouseOverImg()){
+      // window.location.href = nextPage;
+    }
+    // Check if left interaction box was clicked, and toggle its active state (show/hide closeup)
+    if(interactionLeft.hoveredOver()){
+      interactionLeft.activate();
+    }
+    // Check if right interaction box was clicked, and toggle its active state (show/hide closeup)
+    if(interactionRight.hoveredOver()){
+      interactionRight.activate();
+    }
   }
 }
 

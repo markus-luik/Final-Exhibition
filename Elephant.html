@@ -2,10 +2,19 @@
 <html lang="en">
   <head>
     <title>Elephant</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900" rel="stylesheet">
+    <!-- Jquery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <!-- P5.js -->
     <script src="p5.js"></script>
     <script src="p5.sound.min.js"></script>
+    <!-- Separate scripts -->
     <script src="scr_misc.js"></script>
     <script src="scr_global.js"></script>
+    <!-- Stylesheet -->
     <link rel="stylesheet" type="text/css" href="style.css">
     <meta charset="utf-8" />
   </head>
@@ -13,6 +22,50 @@
     <main>
     </main>
     <script src="Elephant.js"></script>
-    
+    <div id="popupContainer">
+      <div id="backgroundCover"></div>
+      <div id="popupbox">
+        <h1>Elephant Room</h1>
+        <hr>
+        <h5>Houzhi Ke</h5>
+        <h5>2023-2024</h5>
+        <h5>Colored pencil</h5>
+        <p>The room right of the bedroom is filled with <b>elephants</b>.</p>
+        <p>A large elephant, constructed from nine smaller ones, occupies most of the space. The central character is squeezed between them.</p>
+        <p>This room illustrates the feeling of being <b>overwhelmed</b> – the sense of being pressed by multiple internal and external demands at once.</p>
+        <hr>
+        <p><b>Note</b>: The elephants come to life when a cursor hovers over!</p>
+        <hr>
+        <button id="hidePrompt">Back</button>
+      </div>
+      <button id="toggleButton">about</button>
+    </div>
   </body>
+  <script>
+      $("#backgroundCover").hide();
+      $("#popupbox").hide();
+      $("#toggleButton").show();
+      popupActive = false;
+      console.log("PopUp active: "+popupActive)
+      //About toggle
+      $("#toggleButton").click(function(){
+        $("#popupbox").toggle();
+        $("#backgroundCover").toggle();
+        if (popupActive){
+          popupActive = false;
+          console.log("PopUp active: "+popupActive)
+        }else{
+          popupActive = true;
+          console.log("PopUp active: "+popupActive)
+        }
+       });
+       //Popup hide
+       $("#hidePrompt").click(function(){
+        $("#popupbox").hide();
+        $("#backgroundCover").hide();
+        $("#toggleButton").show();
+        popupActive = false;
+        console.log("PopUp active: "+popupActive);
+       });
+  </script>
 </html>

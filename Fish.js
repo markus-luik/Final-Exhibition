@@ -141,17 +141,19 @@ function draw() { //(run indefinitely)
             rightOpacity = defaultOpacity;
         }
     }
-function mouseClicked(){ 
-    //check where to go based on click
-    //NOTE: this is currently clunky since the first if statement is already being tested in the draw loop
-    if(!isMouseOver(imgX,imgY,imgWidth,imgHeight)){
-        //right
-        // if( isMouseOver(rightX,rightY,rightWidth,rightHeight)){
-        //     window.location.href = nextPageRight;
-        // }
-        //left
-        if(isMouseOver(leftX,leftY,leftWidth,leftHeight)){
-            window.location.href = nextPageLeft;
+function mouseReleased(){ 
+    if(!popupActive){
+        //check where to go based on click
+        //NOTE: this is currently clunky since the first if statement is already being tested in the draw loop
+        if(!isMouseOver(imgX,imgY,imgWidth,imgHeight)){
+            //right
+            // if( isMouseOver(rightX,rightY,rightWidth,rightHeight)){
+            //     window.location.href = nextPageRight;
+            // }
+            //left
+            if(isMouseOver(leftX,leftY,leftWidth,leftHeight)){
+                window.location.href = nextPageLeft;
+            }
         }
     }
 }

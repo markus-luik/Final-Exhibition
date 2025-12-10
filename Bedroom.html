@@ -2,10 +2,19 @@
 <html lang="en">
   <head>
     <title>Bedroom</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900" rel="stylesheet">
+    <!-- Jquery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <!-- P5.js -->
     <script src="p5.js"></script>
     <script src="p5.sound.min.js"></script>
+    <!-- Separate scripts -->
     <script src="scr_misc.js"></script>
     <script src="scr_global.js"></script>
+    <!-- Stylesheet -->
     <link rel="stylesheet" type="text/css" href="style.css">
     <meta charset="utf-8" />
   </head>
@@ -13,5 +22,49 @@
     <main>
     </main>
     <script src="Bedroom.js"></script>
+  <div id="popupContainer">
+      <div id="backgroundCover"></div>
+      <div id="popupbox">
+        <h1>Bedroom</h1>
+        <hr>
+        <h5>Houzhi Ke</h5>
+        <h5>2023-2024</h5>
+        <h5>Acrylic paint</h5>
+        <p>Upon entering the house, you land in the Bedroom. The room is constructed from layered visual elements that reflect several internal pressures at once: hesitation, difficulty initiating action, social anxiety, and the feeling of being overwhelmed.</p>
+        <p>This space is distincly personal, allowing a look into the artist world.</p>
+        <hr>
+        <p><b>Note</b>: From here, you can choose to move <b>left</b> or <b>right</b>, beginning your exploration of the remaining rooms.</p>
+        <hr>
+        <button id="hidePrompt">Back</button>
+      </div>
+      <button id="toggleButton">about</button>
+    </div>
   </body>
+  <script>
+      $("#backgroundCover").hide();
+      $("#popupbox").hide();
+      $("#toggleButton").show();
+      popupActive = false;
+      console.log("PopUp active: "+popupActive)
+      //About toggle
+      $("#toggleButton").click(function(){
+        $("#popupbox").toggle();
+        $("#backgroundCover").toggle();
+        if (popupActive){
+          popupActive = false;
+          console.log("PopUp active: "+popupActive)
+        }else{
+          popupActive = true;
+          console.log("PopUp active: "+popupActive)
+        }
+       });
+       //Popup hide
+       $("#hidePrompt").click(function(){
+        $("#popupbox").hide();
+        $("#backgroundCover").hide();
+        $("#toggleButton").show();
+        popupActive = false;
+        console.log("PopUp active: "+popupActive);
+       });
+  </script>
 </html>

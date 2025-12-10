@@ -3,6 +3,9 @@
 //debug mode boolean
 bugCathcerMode = false;
 
+//Focus switch (between pop-ups)
+let popupActive = false;
+
 // Initialize flags from localStorage (persist across page loads).
 // Use sessionStorage instead if you want values to clear when the tab closes.
 let hasGoneToBedroom = localStorage.getItem('hasGoneToBedroom') === 'true';

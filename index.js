@@ -83,14 +83,16 @@ function draw() {
      }
 }
 
-function mouseClicked(){
-  if(lightON && isMouseOverWindow()){
-    window.location.href = nextPage;
-  } else if(!lightON && isMouseOverWindow()){
-    lightON = true;
-    bgColor = 255;
-    WindowDarkness = 255;
-    WindowOpacity = 255;
+function mouseReleased(){
+  if(!popupActive){ //if NO popup overlaying
+    if(lightON && isMouseOverWindow()){
+      window.location.href = nextPage;
+    } else if(!lightON && isMouseOverWindow()){
+      lightON = true;
+      bgColor = 255;
+      WindowDarkness = 255;
+      WindowOpacity = 255;
+    }
   }
 }
 
