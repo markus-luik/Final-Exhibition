@@ -73,7 +73,7 @@ function preload(){ //has to be preloaded :(
   bird = loadImage('Assets/Bedroom/bird1.png');
   bird2 = loadImage('Assets/Bedroom/bird2.png');
   bird3 = loadImage('Assets/Bedroom/bird3.png');
-  mirror = loadImage('Assets/Bedroom/nirror.png');
+  mirror = loadImage('Assets/Bedroom/mirror.png');
   bath = loadImage('Assets/Bedroom/bath.png');
   tap = loadImage('Assets/Bedroom/tap.png');
 }
